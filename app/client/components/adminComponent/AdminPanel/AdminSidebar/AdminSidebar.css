@@ -1,0 +1,106 @@
+section#secondary_bar {
+    height: 38px;
+    width: 100%;
+    background: #F1F1F4 url(../../../../../public/images/secondary_bar.png) repeat-x;
+}
+
+section#secondary_bar .user {
+    float: left;
+    width: 23%;
+    height: 38px;
+}
+
+.user p {
+    margin: 0;
+    margin-left: 6%;
+    font-weight: bold;
+    display: block;
+    float: left;
+    width: 85%;
+    height: 35px;
+    line-height: 35px;
+    text-indent: 25px;
+    text-shadow: 0 1px 0 #fff;
+    background: url(../../../../../public/images/icn_user.png) no-repeat center left;
+}
+
+.user a {
+    color: #666666;
+    text-decoration: none;
+}
+
+aside#sidebar {
+    width: 23%;
+    background: #E0E0E3 url(../../../../../public/images/sidebar.png) repeat;
+    float: left;
+    min-height: 700px;
+    margin-top: -5px;
+}
+
+#sidebar h3 {
+    color: #1F1F20;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 #fff;
+    font-size: 13px;
+    margin: 10px 0 10px 6%;
+    display: block;
+    float: left;
+    width: 90%;
+}
+
+#sidebar ul {
+    clear: both;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#sidebar li {
+    list-style: none;
+    margin: 0 0 0 12%;
+    padding: 0;
+}
+
+#sidebar li a {
+    color: #666666;
+    padding-left: 25px;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 25px;
+    text-shadow: 0 1px 0 #fff;
+    white-space: nowrap;
+}
+
+#sidebar li a:hover {
+    color: #444444;
+}
+
+#sidebar a:hover {
+    text-decoration: underline;
+}
+
+.active {
+    font-weight: bold;
+}
+
+
+/* Sidebar Icons */
+
+#sidebar li.icn_new_article a {
+    background: url(../../../../../public/images/icn_new_article.png) no-repeat center left;
+}
+#sidebar li.icn_edit_article a {
+    background: url(../../../../../public/images/icn_edit_article.png) no-repeat center left;
+}
+#sidebar li.icn_add_user a {
+    background: url(../../../../../public/images/icn_add_user.png) no-repeat center left;
+}
+#sidebar li.icn_view_users a {
+    background: url(../../../../../public/images/icn_view_users.png) no-repeat center left;
+}
+#sidebar li.icn_settings a {
+    background: url(../../../../../public/images/icn_settings.png) no-repeat center left;
+}
+#sidebar li.icn_jump_back a {
+    background: url(../../../../../public/images/icn_jump_back.png) no-repeat center left;
+}

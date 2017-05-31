@@ -1,0 +1,21 @@
+.usersBlock {
+    float: left;
+    margin-left: 50px;
+}
+
+.usersBlock h3 {
+    margin-bottom: 30px;
+}
+
+.usersList {
+    padding-left: 20px;
+}
+
+.usersList p {
+    padding-left: 50px;
+}
+
+.userLogo {
+    padding-left: 25px;
+    background: url(../../../../public/images/icn_user.png) no-repeat center left;
+}

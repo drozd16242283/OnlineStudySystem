@@ -1,0 +1,46 @@
+header#header {
+    height: 55px;
+    width: 100%;
+    color: #fff;
+    text-decoration: none;
+    background: #222222 url(../../../../../public/images/header_bg.png) repeat-x;
+}
+
+header#header h2.section_title {
+    float: left;
+    margin: 0;
+    padding: 0 60px 0 30px;
+    display: block;
+    height: 55px;
+    font-size: 22px;
+    font-weight: normal;
+    text-align: left;
+    text-indent: 1.8%;
+    line-height: 55px;
+    color: #fff;
+    text-shadow: 0 -1px 0 #000;
+    background: url(../../../../../public/images/header_shadow.png) no-repeat left top;
+    white-space: nowrap;
+}
+
+.btn_view_site {
+    float: left;
+    width: 8%;
+}
+
+.btn_view_site a {
+    display: block;
+    margin-top: 12px;
+    width: 91px;
+    height: 27px;
+    background: url(../../../../../public/images/btn_view_site.png) no-repeat;
+    text-align: center;
+    line-height: 29px;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 #000;
+}
+
+.btn_view_site a:hover {
+    background-position: 0 -27px;
+}

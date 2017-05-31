@@ -1,0 +1,17 @@
+.registerForm {
+    padding-top: 60px;
+    display: none;
+}
+
+.form-register {
+    display: inline-block;
+    min-width: 300px;
+}
+
+.form-register label {
+    font: 800 16px/1.4 "Roboto", sans-serif;
+}
+
+.form-register button {
+    margin-left: 50px;
+}

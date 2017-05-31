@@ -1,0 +1,11 @@
+.welcome h3 {
+    font: 900 40px/1.4 "Roboto", sans-serif;
+}
+
+.welcome p {
+    font: 300 20px/1.4 "Roboto", sans-serif;
+}
+
+.welcome button {
+    margin-right: 10px;
+}

@@ -1,0 +1,5 @@
+.AuthError {
+    font: 800 16px/1.4 "Roboto", sans-serif;
+    border: 1px solid red;
+    border-radius: 5px;
+}

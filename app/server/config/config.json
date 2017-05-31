@@ -1,0 +1,15 @@
+{
+    "port": 7777,
+    "db": {
+        "dbAdress": "mongodb://127.0.0.1:27017/studySystem"
+    },
+    "session": {
+        "secret": "secret_key",
+        "resave": true,
+        "saveUninitialized": true,
+        "cookie": {
+            "path": "/",
+            "httpOnly": true
+        }
+    }
+}

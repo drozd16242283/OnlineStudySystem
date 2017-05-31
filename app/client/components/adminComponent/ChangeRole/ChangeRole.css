@@ -1,0 +1,25 @@
+.changeRoleBlock h3 {
+    padding-bottom: 30px;
+    width: 430px;
+    float: left;
+}
+
+.changeRoleBlock img {
+    margin-top: 10px;
+}
+
+.changeRoleBlock form {
+    width: 600px;
+    float: left;
+}
+
+.select {
+   border-radius: 10px;
+   font-size: 16px;
+   width: 200px;
+   height: 33px;
+}
+
+.changeRoleBtn {
+    margin-right: 60px;
+}

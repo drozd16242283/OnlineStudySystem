@@ -1,0 +1,50 @@
+.header {
+    height: 55px;
+    width: 100%;
+    transition: padding 0.3s;
+    z-index: 999;
+}
+
+.header nav a {
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 600;
+    margin-left: 20px;
+    text-transform: uppercase;
+}
+
+nav a:hover, nav a.active {
+    color: #fff;
+}
+
+.navbar-brand {
+    padding: 20px 10px 0 20px;
+}
+
+.user {
+    display: none;
+    float: right;
+    margin: 5px 20px;
+}
+
+.userLogo {
+    float: left;
+    padding: 5px 10px;
+}
+
+.user h5 {
+    float: left;
+    padding-right: 50px;
+    line-height: 32px;
+    color: #fff;
+    font: 400 21px/1.4 "Roboto", sans-serif;
+}
+
+.logout {
+    float: right;
+    padding-top: 15px;
+}
+
+.logout button {
+    background: none;
+    border: none;
+}
