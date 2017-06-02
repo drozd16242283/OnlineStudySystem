@@ -5,7 +5,6 @@ import './AdminSidebar.css'
 
 const AdminSidebar = () => {
     let adminName = localStorage.getItem('username')
-
     return (
         <div>
             <section id="secondary_bar">
@@ -17,8 +16,7 @@ const AdminSidebar = () => {
         		<h3>Курси</h3>
         		<ul>
         			<li className="icn_new_article"><Link to="/newcourse" activeClassName='active'>Новий курс</Link></li>
-                    <li className="icn_new_article"><Link to="/addlecture" activeClassName='active'>Додати лекцію</Link></li>
-                    <li className="icn_new_article"><Link to="/addpractical" activeClassName='active'>Додати практичну</Link></li>
+                    <li className="icn_new_article"><Link to="/addlecture" activeClassName='active'>Додати лекцію або практичну</Link></li>
                     <li className="icn_edit_article"><Link to="/edit" activeClassName='active'>Редагувати курс</Link></li>
         		</ul>
         		<h3>Користувачі</h3>

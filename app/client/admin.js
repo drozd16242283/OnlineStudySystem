@@ -5,7 +5,6 @@ import { browserHistory, Router, Route, IndexRoute } from 'react-router'
 import Admin from './components/adminComponent/AdminPanel/AdminComponent'
 import AddCourse from './components/adminComponent/AddCourse'
 import AddLecture from './components/adminComponent/AddLecture'
-import AddPractical from './components/adminComponent/AddPractical'
 import EditCourses from './components/adminComponent/EditCourses'
 import ChangeRole from './components/adminComponent/ChangeRole'
 import ShowAllUsers from './components/adminComponent/ShowAllUsers'
@@ -16,7 +15,6 @@ reactDOM.render(
         <Route component={Admin} path="/admin">
             <Route component={AddCourse} path="/newcourse" />
             <Route component={AddLecture} path="/addlecture" />
-            <Route component={AddPractical} path="/addpractical" />
             <Route component={EditCourses} path="/edit" />
             <Route component={ChangeRole} path="/changerole" />
             <Route component={ShowAllUsers} path="/users" />

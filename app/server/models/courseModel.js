@@ -1,7 +1,5 @@
 import randomToken from 'rand-token'
 import mongoose from '../libs/mongoose'
-import escapeHtml from '../helpers/escapeHtml'
-
 
 /*let commentSchema = new mongoose.Schema({
     author: String,
@@ -24,16 +22,34 @@ let courseSchema = new mongoose.Schema({
     }
 })
 
+courseSchema.statics.getAllCourses = function(callback) {
+    this.find({}, { lectures: 0, __v: 0 }, callback)
+}
+
+courseSchema.statics.getAllLectures = function(courseLink, callback) {
+    this.find({ courseLink: courseLink }, { _id: 0, lectures: 1 }, callback)
+}
+
+courseSchema.statics.getCurrentLecture = function(lectureLink, callback) {
+    this.findOne(
+        { "lectures.lectureLink": lectureLink },
+        { comments: 1, lectures: { $elemMatch: { lectureLink: lectureLink } }  },
+        callback
+    )
+}
 
 courseSchema.methods.addNewCourse = function(newCourse, callback) {
-    let link = escapeHtml(newCourse.courseName.toLowerCase()) + randomToken.generate(16)
+    let link = randomToken.generate(16)
+
+    //let link = encodeURIComponent(newCourse.courseName.toLowerCase().trim()) + randomToken.generate(16)
     newCourse.courseLink = link
 
     newCourse.save(callback)
 }
 
 courseSchema.statics.addNewLecture = function(newLecture, callback) {
-    let link = escapeHtml(newLecture.lectureName.toLowerCase()) + randomToken.generate(16)
+    let link = randomToken.generate(16)
+    //let link = encodeURIComponent(newLecture.lectureName.toLowerCase().trim()) + randomToken.generate(16)
     let lectureData = {
         lectureName: newLecture.lectureName,
         lectureText: newLecture.lectureText,

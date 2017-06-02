@@ -1,3 +1,22 @@
 .lecturesBlock {
     margin-top: 50px;
 }
+
+.lecturesBlock a {
+    font: 400 20px/1.4 "Roboto", sans-serif;
+    text-decoration: none;
+}
+
+.lecturesBlock h3 {
+    padding-bottom: 5%;
+}
+
+.lecture {
+    background: #F8F8F8;
+}
+
+.lecture span {
+    margin: 0 20px 0 15px;
+    color: #959595;
+    font-size: 16px;
+}

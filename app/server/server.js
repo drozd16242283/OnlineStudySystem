@@ -37,10 +37,13 @@ localPassport(passport)
 import authApi from '../API/authApi'
 import adminApi from '../API/adminApi'
 import courseApi from '../API/courseApi'
+import mainApi from '../API/mainApi'
 
 app.use('/auth', authApi)
 app.use('/admin', isAdmin, adminApi)
 app.use('/courses', courseApi)
+app.use('/', mainApi)
+
 
 
 // Starting the server

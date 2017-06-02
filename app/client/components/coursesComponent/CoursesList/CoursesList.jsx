@@ -4,7 +4,7 @@ import Link from 'react-router/lib/Link'
 
 import './CoursesList.css'
 
-const Courses = React.createClass({
+const CoursesList = React.createClass({
     getInitialState() {
         return {
             coursesList: []
@@ -16,6 +16,7 @@ const Courses = React.createClass({
     },
 
     render() {
+        //this.props.router.push('/courses/r231sOmPlc3Qly4Q')
         let coursesList = this.state.coursesList.map(el => {
             return (
                 <div key={el._id} className="col-md-4">
@@ -47,4 +48,4 @@ const Courses = React.createClass({
 })
 
 
-export default Courses
+export default CoursesList

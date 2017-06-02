@@ -23,6 +23,8 @@ const AddCourse = React.createClass({
             this.setState({ message: { error: 'Заповніть форму!' } })
         } else if (courseData.courseDescription.length > 175) {
             this.setState({ message: { error: 'Занадто великий опис!' } })
+        } else if (courseData.courseName.length > 30) {
+            this.setState({ message: { error: 'Занадто велика назва курсу!' } })
         } else {
             sendForm(courseData, '/admin/newcourse')
                 .then(response => this.setState({ message: response.data }))
@@ -44,31 +46,33 @@ const AddCourse = React.createClass({
 
     render() {
         return (
-            <section id="main" className="column">
-        		<article className="module width_full">
-        			<header><h3>Додати новий курс</h3></header>
-        				<div className="module_content">
-        					<fieldset>
-        						<label>Назва курсу</label>
-        						<input type="text" className="inputCourseName" />
-        					</fieldset>
-                            <fieldset>
-                                <label>Зображення</label>
-                                <input type="text" className="inputImageName" />
-                            </fieldset>
-        					<fieldset>
-        						<label>Опис</label>
-        						<textarea rows="6" className="courseDescription"></textarea>
-        					</fieldset>
-        				</div>
-        			<footer>
-        				<div className="submit_link">
-                            {this.submitMessage()}
-        					<input type="button" className="alt_btn" value="Опублікувати" onClick={this.submitNewCourse} />
-        				</div>
-        			</footer>
-        		</article>
-        	</section>
+            <div className="container">
+                <section id="main" className="column">
+            		<article className="module width_full">
+            			<header><h3>Додати новий курс</h3></header>
+            				<div className="module_content">
+            					<fieldset>
+            						<label>Назва курсу</label>
+            						<input type="text" className="inputCourseName" />
+            					</fieldset>
+                                <fieldset>
+                                    <label>Зображення</label>
+                                    <input type="text" className="inputImageName" />
+                                </fieldset>
+            					<fieldset>
+            						<label>Опис</label>
+            						<textarea rows="6" className="courseDescription"></textarea>
+            					</fieldset>
+            				</div>
+            			<footer>
+            				<div className="submit_link">
+                                {this.submitMessage()}
+            					<input type="button" className="alt_btn" value="Опублікувати" onClick={this.submitNewCourse} />
+            				</div>
+            			</footer>
+            		</article>
+            	</section>
+            </div>
         )
     }
 })

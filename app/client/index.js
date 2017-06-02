@@ -7,11 +7,16 @@ import Header from './components/indexComponent/Header'
 import IndexComponent from './components/indexComponent/index'
 import CoursesList from './components/coursesComponent/CoursesList'
 import LecturesList from './components/coursesComponent/LecturesList'
+import Lecture from './components/coursesComponent/Lecture'
 import About from './components/aboutComponent'
 
 
 const checkAuth = () => {
     if (localStorage.username) browserHistory.push('/courses')
+}
+
+const test = () => {
+    browserHistory.push('/courses/r231sOmPlc3Qly4Q')
 }
 
 reactDOM.render (
@@ -20,7 +25,8 @@ reactDOM.render (
             <IndexRoute component={IndexComponent} />
             { checkAuth() }
             <Route component={CoursesList} path="courses" />
-            <Route component={LecturesList} path="courses/:courselink" />
+            <Route component={LecturesList} path="courses/:courseLink" />
+            <Route component={Lecture} path="courses/:courseLink/:lectureLink" />
             <Route component={About} path="about" />
         </Route>
     </Router>,

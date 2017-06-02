@@ -1,4 +1,4 @@
-const changeRoles = (usersList) => {
+const rolesToString = (usersList) => {
     let response = []
 
     for (var key in usersList) {
@@ -20,4 +20,4 @@ const changeRoles = (usersList) => {
     return response
 }
 
-export default changeRoles
+export default rolesToString

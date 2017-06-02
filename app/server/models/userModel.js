@@ -16,6 +16,10 @@ userSchema.statics.comparePassword = function(password, hash, callback) {
     bcrypt.compare(password, hash, callback)
 }
 
+userSchema.statics.getAllUsers = function(callback) {
+    this.find({}, { password: 0, __v: 0 }, callback)
+}
+
 userSchema.statics.getUserByUsername = function(username, callback) {
     this.findOne({ username: username }, callback)
 }
@@ -30,6 +34,14 @@ userSchema.statics.getUserById = function(id, callback) {
 
 userSchema.statics.getUserRole = function(username, callback) {
     this.findOne({ username: username }, { _id:0, role:1 }, callback)
+}
+
+userSchema.statics.changeUserRole = function(roleData, callback) {
+    this.update(
+        { username: roleData.username },
+        { $set: { "role": roleData.role }},
+        callback
+    )
 }
 
 userSchema.methods.createUser = function(newUser, callback) {
