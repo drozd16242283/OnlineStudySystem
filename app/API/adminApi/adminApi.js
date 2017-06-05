@@ -33,7 +33,8 @@ export function addNewCourse(req, res) {
     let courseData = {
         courseName: req.body.courseName,
         courseImage: req.body.courseImage,
-        courseDescription: req.body.courseDescription
+        courseDescription: req.body.courseDescription,
+        courseLink: req.body.courseLink
     }
 
     let newCourse = new courseModel(courseData)
@@ -52,7 +53,8 @@ export function addNewLecture(req, res) {
         courseName: req.body.courseName,
         lectureName: req.body.lectureName,
         lectureText: req.body.lectureText,
-        isLecture: req.body.isLecture
+        lectureLink: +req.body.lectureLink,
+        isLecture: req.body.isLecture,
     }
     courseModel.addNewLecture(lectureData, (err, result) => {
         let response = err ? { error: 'Помилка бази даних.' } : { success: 'Лекцію створено.' }

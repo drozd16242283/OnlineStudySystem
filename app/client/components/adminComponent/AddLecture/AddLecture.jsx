@@ -19,12 +19,28 @@ const AddLecture = React.createClass({
             .then(response => this.setState({ courses: response.data }))
     },
 
+    getLecturesCounter() {
+        let lectureCounter = 0
+
+        let currentLecturesList = this.state.courses.filter(el => {
+            return el.courseName == document.querySelector('.selectCourse').value
+        }).map(el => el.lectures)
+        currentLecturesList[0].forEach((el, i) => {
+            lectureCounter = el.lectureLink
+        })
+
+        return lectureCounter
+    },
+
     submitNewLecture() {
+        let lectureCounter = this.getLecturesCounter()
+
         document.getElementById('RadioLecture').checked = true
         let lectureData = {
             courseName: document.querySelector('.selectCourse').value,
             lectureName: document.querySelector('.inputLectureName').value,
             lectureText: document.querySelector('.lectureText').value,
+            lectureLink: ++lectureCounter,
             isLecture: document.getElementById('RadioLecture').checked
         }
 

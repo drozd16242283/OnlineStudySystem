@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 import isFormEmpty from 'server/helpers/forms/isFormEmpty'
 import sendForm from 'server/helpers/forms/sendForm'
@@ -8,15 +9,29 @@ import './AddCourse.css'
 const AddCourse = React.createClass({
     getInitialState() {
         return {
-            message: {}
+            message: {},
+            coursesCounter: 0
         }
     },
 
+    componentDidMount() {
+        axios.get('/courses/coursescounter')
+            .then(response => {
+                let coursesCounter = 0
+                if (response.data.length > 0) {
+                    coursesCounter = response.data[0].courseLink
+                }
+                this.setState({ coursesCounter: coursesCounter })
+            })
+        },
+
     submitNewCourse() {
+        let coursesCounter = this.state.coursesCounter
         let courseData = {
             courseName: document.querySelector('.inputCourseName').value,
             courseImage: document.querySelector('.inputImageName').value,
-            courseDescription: document.querySelector('.courseDescription').value
+            courseDescription: document.querySelector('.courseDescription').value,
+            courseLink: ++coursesCounter
         }
 
         if (isFormEmpty(courseData)) {
@@ -45,6 +60,7 @@ const AddCourse = React.createClass({
     },
 
     render() {
+
         return (
             <div className="container">
                 <section id="main" className="column">

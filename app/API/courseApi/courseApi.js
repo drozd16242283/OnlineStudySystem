@@ -4,6 +4,14 @@ export function showCoursesPage(req, res) {
     res.redirect('/')
 }
 
+export function getCoursesCounter(req, res) {
+    courseModel.getCoursesCounter((err, response) => {
+        if (response) {
+            res.json(response)
+        }
+    })
+}
+
 export function getAllCourses(req, res) {
     courseModel.getAllCourses((err, coursesList) => {
         let response = err ? { error: 'Помилка бази даних.' } : coursesList

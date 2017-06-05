@@ -22,7 +22,7 @@ const LecturesList = React.createClass({
         let courseCount = 1
         let lecturesList = this.state.lecturesList.map(el => {
             return (
-                <li  className="list-group-item lecture">
+                <li className="list-group-item lecture">
                     <span>{courseCount++}.</span>
                     <Link to={`/courses/${courseLink}/${el.lectureLink}`}>{el.lectureName}</Link>
                 </li>

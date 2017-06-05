@@ -1,4 +1,3 @@
-import randomToken from 'rand-token'
 import mongoose from '../libs/mongoose'
 
 /*let commentSchema = new mongoose.Schema({
@@ -11,7 +10,7 @@ let courseSchema = new mongoose.Schema({
     courseName: String,
     courseDescription: String,
     courseImage: String,
-    courseLink: String,
+    courseLink: Number,
     lectures: {
         type: Array,
         "default": []
@@ -22,8 +21,25 @@ let courseSchema = new mongoose.Schema({
     }
 })
 
+courseSchema.methods.addNewCourse = function(newCourse, callback) {
+    newCourse.save(callback)
+}
+
+courseSchema.statics.getCoursesCounter = function(callback) {
+    this.find({}, callback).sort({ courseLink: -1 }).limit(1)
+}
+
 courseSchema.statics.getAllCourses = function(callback) {
-    this.find({}, { lectures: 0, __v: 0 }, callback)
+    this.find({}, { __v: 0 }, callback)
+}
+
+
+courseSchema.statics.addNewLecture = function(newLecture, callback) {
+    this.update(
+        { courseName: newLecture.courseName },
+        { $push: { "lectures": newLecture } },
+        callback
+    )
 }
 
 courseSchema.statics.getAllLectures = function(courseLink, callback) {
@@ -37,32 +53,6 @@ courseSchema.statics.getCurrentLecture = function(lectureLink, callback) {
         callback
     )
 }
-
-courseSchema.methods.addNewCourse = function(newCourse, callback) {
-    let link = randomToken.generate(16)
-
-    //let link = encodeURIComponent(newCourse.courseName.toLowerCase().trim()) + randomToken.generate(16)
-    newCourse.courseLink = link
-
-    newCourse.save(callback)
-}
-
-courseSchema.statics.addNewLecture = function(newLecture, callback) {
-    let link = randomToken.generate(16)
-    //let link = encodeURIComponent(newLecture.lectureName.toLowerCase().trim()) + randomToken.generate(16)
-    let lectureData = {
-        lectureName: newLecture.lectureName,
-        lectureText: newLecture.lectureText,
-        lectureLink: link,
-        isLecture: newLecture.isLecture
-    }
-    this.update(
-        { courseName: newLecture.courseName },
-        { $push: { "lectures": lectureData } },
-        callback
-    )
-}
-
 
 const courseModel = mongoose.model('Course', courseSchema)
 
