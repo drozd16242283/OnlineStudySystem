@@ -21,9 +21,11 @@ const LecturesList = React.createClass({
         let courseLink = this.props.params.courseLink
         let courseCount = 1
         let lecturesList = this.state.lecturesList.map(el => {
+            let isLecture = !el.isLecture ? <h5>Практична</h5> : false
             return (
                 <li className="list-group-item lecture">
                     <span>{courseCount++}.</span>
+                    {isLecture}
                     <Link to={`/courses/${courseLink}/${el.lectureLink}`}>{el.lectureName}</Link>
                 </li>
             )

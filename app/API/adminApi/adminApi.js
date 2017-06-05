@@ -45,18 +45,34 @@ export function addNewCourse(req, res) {
 }
 
 export function editCourse(req, res) {
+    let newCourseData = {
+        courseName: req.body.courseName,
+        newCourseName: req.body.newCourseName,
+        courseDescription: req.body.courseDescription
+    }
+    courseModel.editCourse(newCourseData, (err, result) => {
+        let response = err ? { error: 'Помилка бази даних.' } : { success: 'Курс оновлено.' }
+        res.json(response)
+    })
+}
 
+export function deleteCourse(req, res) {
+    console.log(req.params)
+    courseModel.deleteCourse(req.params.courseLink, (err, result) => {
+        if (err) res.sendStatus(500)
+        if (result) res.json({ success: 'Курс видалено.' })
+    })
 }
 
 export function addNewLecture(req, res) {
+    let isLecture = (req.body.isLecture == 'false') ? false : true
     let lectureData = {
-        courseName: req.body.courseName,
         lectureName: req.body.lectureName,
         lectureText: req.body.lectureText,
         lectureLink: +req.body.lectureLink,
-        isLecture: req.body.isLecture,
+        isLecture: isLecture
     }
-    courseModel.addNewLecture(lectureData, (err, result) => {
+    courseModel.addNewLecture(req.body.courseName, lectureData, (err, result) => {
         let response = err ? { error: 'Помилка бази даних.' } : { success: 'Лекцію створено.' }
         res.json(response)
     })

@@ -30,10 +30,11 @@ export function getLecturesList(req, res) {
 }
 
 export function getCurrentLecture(req, res) {
-    courseModel.getCurrentLecture(req.params.lectureLink, (err, lecture) => {
+    console.log(req.params)
+    let lectureLink = +req.params.lectureLink
+    courseModel.getCurrentLecture(req.params.courseLink, lectureLink, (err, lecture) => {
         if (err) return res.sendStatus(500)
         lecture ? res.json(lecture) : res.redirect('/courses')
-        //res.json(lecture)
     })
 
 }

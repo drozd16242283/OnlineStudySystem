@@ -15,10 +15,6 @@ const checkAuth = () => {
     if (localStorage.username) browserHistory.push('/courses')
 }
 
-const test = () => {
-    browserHistory.push('/courses/r231sOmPlc3Qly4Q')
-}
-
 reactDOM.render (
     <Router history={browserHistory}>
         <Route component={Header} path="/" >

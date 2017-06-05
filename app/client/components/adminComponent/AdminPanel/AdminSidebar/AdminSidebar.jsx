@@ -17,7 +17,8 @@ const AdminSidebar = () => {
         		<ul>
         			<li className="icn_new_article"><Link to="/newcourse" activeClassName='active'>Новий курс</Link></li>
                     <li className="icn_new_article"><Link to="/addlecture" activeClassName='active'>Додати лекцію або практичну</Link></li>
-                    <li className="icn_edit_article"><Link to="/edit" activeClassName='active'>Редагувати курс</Link></li>
+                    <li className="icn_edit_article"><Link to="/editcourse" activeClassName='active'>Редагувати курс</Link></li>
+                    <li className="icn_edit_article"><Link to="/editlecture" activeClassName='active'>Редагувати лекцію</Link></li>
         		</ul>
         		<h3>Користувачі</h3>
         		<ul>

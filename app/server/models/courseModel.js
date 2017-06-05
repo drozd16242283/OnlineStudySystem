@@ -33,11 +33,28 @@ courseSchema.statics.getAllCourses = function(callback) {
     this.find({}, { __v: 0 }, callback)
 }
 
-
-courseSchema.statics.addNewLecture = function(newLecture, callback) {
+courseSchema.statics.editCourse = function(newCourseData, callback) {
     this.update(
-        { courseName: newLecture.courseName },
-        { $push: { "lectures": newLecture } },
+        { courseName: newCourseData.courseName },
+        { $set:
+            {
+                courseName: newCourseData.newCourseName,
+                courseDescription: newCourseData.courseDescription
+            }
+        },
+        callback
+    )
+}
+
+courseSchema.statics.deleteCourse = function(courseLink, callback) {
+    this.remove({ courseLink: courseLink }, callback)
+}
+
+
+courseSchema.statics.addNewLecture = function(courseName, lectureData, callback) {
+    this.update(
+        { courseName: courseName },
+        { $push: { "lectures": lectureData } },
         callback
     )
 }
@@ -46,9 +63,9 @@ courseSchema.statics.getAllLectures = function(courseLink, callback) {
     this.find({ courseLink: courseLink }, { _id: 0, lectures: 1 }, callback)
 }
 
-courseSchema.statics.getCurrentLecture = function(lectureLink, callback) {
+courseSchema.statics.getCurrentLecture = function(courseLink, lectureLink, callback) {
     this.findOne(
-        { "lectures.lectureLink": lectureLink },
+        { courseLink: courseLink },
         { comments: 1, lectures: { $elemMatch: { lectureLink: lectureLink } }  },
         callback
     )

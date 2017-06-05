@@ -42,7 +42,7 @@ import mainApi from '../API/mainApi'
 app.use('/auth', authApi)
 app.use('/admin', isAdmin, adminApi)
 app.use('/courses', courseApi)
-//app.use('/', mainApi)
+app.use('/', mainApi)
 
 
 

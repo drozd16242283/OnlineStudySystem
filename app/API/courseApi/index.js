@@ -5,9 +5,8 @@ router.get('/', courseApi.showCoursesPage)
 
 router.get('/coursescounter', courseApi.getCoursesCounter)
 router.get('/getcourses', courseApi.getAllCourses)
-
 router.get('/getlectures/:courseLink', courseApi.getLecturesList)
-router.get('/:lectureLink', courseApi.getCurrentLecture)
+router.get('/getlectures/:courseLink/:lectureLink', courseApi.getCurrentLecture)
 
 
 export default router

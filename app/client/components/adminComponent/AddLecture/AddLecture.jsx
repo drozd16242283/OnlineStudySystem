@@ -15,6 +15,7 @@ const AddLecture = React.createClass({
     },
 
     componentDidMount() {
+        document.getElementById('RadioLecture').checked = true
         axios.get('/courses/getcourses')
             .then(response => this.setState({ courses: response.data }))
     },
@@ -34,8 +35,6 @@ const AddLecture = React.createClass({
 
     submitNewLecture() {
         let lectureCounter = this.getLecturesCounter()
-
-        document.getElementById('RadioLecture').checked = true
         let lectureData = {
             courseName: document.querySelector('.selectCourse').value,
             lectureName: document.querySelector('.inputLectureName').value,
@@ -78,7 +77,7 @@ const AddLecture = React.createClass({
                                 <div className="row">
                                     <div className="col-xs-8 col-sm-6 chooseCourse">
                                         <fieldset>
-                                            <label>Оберіть курс: </label>
+                                            <label>Виберіть курс: </label>
                                             <select className="selectCourse">{selectCourse}</select>
                                         </fieldset>
                                     </div>
