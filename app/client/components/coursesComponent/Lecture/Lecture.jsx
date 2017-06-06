@@ -23,11 +23,17 @@ const Lecture = React.createClass({
 
     render() {
         let lecture = this.state.lecture
-        let isLecture = lecture.isLecture
+        let isPractical = !lecture.isLecture
+            ? <div className="practicalFileInput">
+                  <p>Виберіть файл з практичною: </p>
+                  <input type="file" />
+              </div>
+            : false
         return (
             <div className="container lectureBlock">
                 <h1>{lecture.lectureName}</h1>
                 <p>{lecture.lectureText}</p>
+                {isPractical}
                 <Comments comments={this.state.comments} />
             </div>
         )

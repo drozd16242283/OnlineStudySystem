@@ -57,7 +57,6 @@ export function editCourse(req, res) {
 }
 
 export function deleteCourse(req, res) {
-    console.log(req.params)
     courseModel.deleteCourse(req.params.courseLink, (err, result) => {
         if (err) res.sendStatus(500)
         if (result) res.json({ success: 'Курс видалено.' })
@@ -75,5 +74,21 @@ export function addNewLecture(req, res) {
     courseModel.addNewLecture(req.body.courseName, lectureData, (err, result) => {
         let response = err ? { error: 'Помилка бази даних.' } : { success: 'Лекцію створено.' }
         res.json(response)
+    })
+}
+
+export function editLecture(req, res) {
+    courseModel.editLecture(req.body, (err, result) => {
+        if (err) res.sendStatus(500)
+        if (result) res.json({ success: 'Лекцію редаговано.' })
+    })
+}
+
+export function deleteLecture(req, res) {
+    let courseLink = +req.params.courseLink
+    let lectureLink = +req.params.lectureLink
+    courseModel.deleteLecture(courseLink, lectureLink, (err, result) => {
+        if (err) res.sendStatus(500)
+        if (result) res.json({ success: 'Лекцію видалено.' })
     })
 }

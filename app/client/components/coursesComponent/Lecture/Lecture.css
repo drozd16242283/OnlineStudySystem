@@ -11,3 +11,12 @@
 .lectureBlock p {
     word-wrap: break-word;
 }
+
+.practicalFileInput {
+    margin-top: 50px;
+}
+
+.practicalFileInput p {
+    float: left;
+    margin-right: 20px;
+}

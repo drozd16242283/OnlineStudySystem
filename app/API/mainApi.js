@@ -10,7 +10,8 @@ const redirectToCoursesPage = (req, res) => {
 
 router.get('/newcourse', redirectToAdminPage)
 router.get('/addlecture', redirectToAdminPage)
-router.get('/edit', redirectToAdminPage)
+router.get('/editcourse', redirectToAdminPage)
+router.get('/editlecture', redirectToAdminPage)
 router.get('/changerole', redirectToAdminPage)
 router.get('/users', redirectToAdminPage)
 

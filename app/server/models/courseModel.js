@@ -71,6 +71,30 @@ courseSchema.statics.getCurrentLecture = function(courseLink, lectureLink, callb
     )
 }
 
+courseSchema.statics.editLecture = function(newLectureData, callback) {
+    this.update(
+        {
+            courseName: newLectureData.courseName,
+            "lectures.lectureName": newLectureData.lectureName
+        },
+        { $set:
+            {
+                "lectures.$.lectureName": newLectureData.newLectureName,
+                "lectures.$.lectureText": newLectureData.lectureText
+            }
+        },
+        callback
+    )
+}
+
+courseSchema.statics.deleteLecture = function(courseLink, lectureLink, callback) {
+    this.update(
+        { courseLink: courseLink },
+        { $pull: { lectures: { lectureLink: lectureLink } }},
+        callback
+    )
+}
+
 const courseModel = mongoose.model('Course', courseSchema)
 
 export default courseModel
