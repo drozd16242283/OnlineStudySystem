@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import isFormEmpty from 'server/helpers/forms/isFormEmpty'
 import sendForm from 'server/helpers/forms/sendForm'
+import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './EditCourse.css'
 
@@ -49,25 +50,6 @@ const EditCourse = React.createClass({
 
     },
 
-    deleteCourse() {
-        let courseLink = this.state.selectedCourse[0].courseLink
-        axios.get(`/admin/deletecourse/${courseLink}`)
-            .then(response => this.setState({ message: response.data }))
-    },
-
-    submitMessage() {
-        const message = this.state.message
-
-        if (message.error) {
-            return <p>{message.error}</p>
-        } else if (message.success) {
-            setTimeout(() => location.href = '/admin', 300)
-            return <img src="icons/tick.png" />
-        } else {
-            return false
-        }
-    },
-
     getSelectedCourseInfo() {
         return this.state.selectedCourse.map(el => {
             return (
@@ -77,6 +59,12 @@ const EditCourse = React.createClass({
                 </div>
             )
         })
+    },
+
+    deleteCourse() {
+        let courseLink = this.state.selectedCourse[0].courseLink
+        axios.get(`/admin/deletecourse/${courseLink}`)
+            .then(response => this.setState({ message: response.data }))
     },
 
     render() {
@@ -104,7 +92,7 @@ const EditCourse = React.createClass({
             				</div>
             			<footer>
             				<div className="submit_link">
-                                {this.submitMessage()}
+                                {submitMessage(this.state.message)}
             					<input type="button" className="alt_btn" value="Редагувати" onClick={this.submitEditCourse} />
                                 <input type="button" className="alt_btn" value="Видалити" onClick={this.deleteCourse} />
             				</div>

@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import isFormEmpty from 'server/helpers/forms/isFormEmpty'
 import sendForm from 'server/helpers/forms/sendForm'
+import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './AddLecture.css'
 
@@ -26,7 +27,7 @@ const AddLecture = React.createClass({
         let currentLecturesList = this.state.courses.filter(el => {
             return el.courseName == document.querySelector('.selectCourse').value
         }).map(el => el.lectures)
-        currentLecturesList[0].forEach((el, i) => {
+        currentLecturesList[0].forEach(el => {
             lectureCounter = el.lectureLink
         })
 
@@ -50,19 +51,6 @@ const AddLecture = React.createClass({
         } else {
             sendForm(lectureData, '/admin/addlecture')
                 .then(response => this.setState({ message: response.data }))
-        }
-    },
-
-    submitMessage() {
-        const message = this.state.message
-
-        if (message.error) {
-            return <p>{message.error}</p>
-        } else if (message.success) {
-            setTimeout(() => location.href = '/admin', 300)
-            return <img src="icons/tick.png" />
-        } else {
-            return false
         }
     },
 
@@ -111,7 +99,7 @@ const AddLecture = React.createClass({
                 			</div>
                 		<footer>
                 			<div className="submit_link">
-                                {this.submitMessage()}
+                                {submitMessage(this.state.message)}
                 				<input type="button" className="alt_btn" value="Опублікувати" onClick={this.submitNewLecture} />
                 			</div>
                 		</footer>

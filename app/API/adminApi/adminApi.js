@@ -3,6 +3,8 @@ import userModel from '../../server/models/userModel'
 import courseModel from '../../server/models/courseModel'
 import rolesToString from '../../server/helpers/role/rolesToString'
 import roleToNumber from '../../server/helpers/role/roleToNumber'
+import uploadCourseImage from '../../server/helpers/uploads/uploadCourseImage'
+import isImage from '../../server/helpers/isImage'
 
 
 const adminFile = path.resolve(__dirname, '../../public', 'admin.html')
@@ -24,24 +26,33 @@ export function changeUserRole(req, res) {
         role: roleToNumber(req.body.role)
     }
     userModel.changeUserRole(roleData, (err, user) => {
-        let response = err ? { error: 'Помилка бази даних.' } : user.nModified
+        let response = err ? { error: 'Помилка бази даних.' } : { success: 'Роль користувача змінено.' }
         res.json(response)
     })
 }
 
 export function addNewCourse(req, res) {
-    let courseData = {
-        courseName: req.body.courseName,
-        courseImage: req.body.courseImage,
-        courseDescription: req.body.courseDescription,
-        courseLink: req.body.courseLink
-    }
+    if (Object.keys(req.body).length === 0) {
+        uploadCourseImage(req, res, (err) => {
+            if (err) res.sendStatus(503)
+            if (!isImage(req.file.mimetype)) {
+                res.json({ error: 'Виберіть картинку.' })
+            }
+        })
+    } else {
+        let courseData = {
+            courseName: req.body.courseName,
+            courseImage: req.body.courseImage,
+            courseDescription: req.body.courseDescription,
+            courseLink: req.body.courseLink
+        }
 
-    let newCourse = new courseModel(courseData)
-    newCourse.addNewCourse(newCourse, (err, course) => {
-        let response = err ? { error: 'Помилка бази даних.' } : { success: 'Курс створено.' }
-        res.json(response)
-    })
+        let newCourse = new courseModel(courseData)
+        newCourse.addNewCourse(newCourse, (err, course) => {
+            let response = err ? { error: 'Помилка бази даних.' } : { success: 'Курс створено.' }
+            res.json(response)
+        })
+    }
 }
 
 export function editCourse(req, res) {

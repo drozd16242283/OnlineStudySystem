@@ -1,6 +1,9 @@
 import React from 'react'
 import axios from 'axios'
+
 import sendForm from 'server/helpers/forms/sendForm'
+import submitMessage from 'server/helpers/forms/submitMessage'
+
 
 import './ChangeRole.css'
 
@@ -8,7 +11,7 @@ const ChangeRole = React.createClass({
     getInitialState() {
         return {
             users: [],
-            isSuccess: ''
+            message: {}
         }
     },
 
@@ -23,22 +26,8 @@ const ChangeRole = React.createClass({
             role: document.getElementsByClassName('selectRole')[0].value
         }
         sendForm(changeRolesData, '/admin/changerole').then(response => {
-            this.setState({ isSuccess: response.data })
+            this.setState({ message: response.data })
         })
-    },
-
-    successMessage() {
-        let successMessage = (this.state.isSuccess == 1)
-            ? <img src="icons/tick.png" />
-            : false
-
-        if (successMessage) {
-            setTimeout(() => {
-                location.href = '/admin'
-            }, 300)
-        }
-
-        return successMessage
     },
 
     render() {
@@ -48,7 +37,7 @@ const ChangeRole = React.createClass({
                 <div className="row">
                     <div className="col-xs-8">
                         <h3>Змінити роль користувача</h3>
-                        {this.successMessage()}
+                        {submitMessage(this.state.message)}
                         <form method="post" className="form-horizontal">
                             <div className="form-group">
                                 <label className="col-xs-4 control-label">Виберіть користувача: </label>

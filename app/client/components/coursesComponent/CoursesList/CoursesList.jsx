@@ -23,7 +23,7 @@ const CoursesList = React.createClass({
                     <div className="course">
                         <Link to={`/courses/${el.courseLink}`}>
                             <div className="courseLogo">
-                                <img src={`icons/${el.courseImage}`} />
+                                <img src={`coursesIcons/${el.courseImage}`} />
                                 <div className="line"></div>
                             </div>
                         </Link>

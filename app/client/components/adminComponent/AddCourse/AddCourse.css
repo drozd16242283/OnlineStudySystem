@@ -57,6 +57,13 @@ section#main {
     color: #666;
 }
 
+.inputCourseImage {
+    width: 400px;
+}
+
+.inputCourseImage label {
+    padding-top: 10px;
+}
 
 /* New/Edit Article Module */
 

@@ -32,10 +32,10 @@ const Header = React.createClass({
                             <li><Link to="/about">Про нас</Link></li>
                         </ul>
                         <div className="user hidden-sm">
-                            <div className="userLogo"><img src="icons/man.png" /></div>
+                            <div className="userLogo"><img src="images/man.png" /></div>
                             <h5>{userName}</h5>
                             <div className="logout">
-                                <button type="button" onClick={this.logOut}><img src="icons/logout.png" /></button>
+                                <button type="button" onClick={this.logOut}><img src="images/logout.png" /></button>
                             </div>
                         </div>
                     </nav>

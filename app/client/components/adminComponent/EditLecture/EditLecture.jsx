@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import isFormEmpty from 'server/helpers/forms/isFormEmpty'
 import sendForm from 'server/helpers/forms/sendForm'
-
+import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './EditLecture.css'
 
@@ -66,19 +66,6 @@ const EditLecture = React.createClass({
             .then(response => this.setState({ message: response.data }))
     },
 
-    submitMessage() {
-        const message = this.state.message
-
-        if (message.error) {
-            return <p>{message.error}</p>
-        } else if (message.success) {
-            setTimeout(() => location.href = '/admin', 300)
-            return <img src="icons/tick.png" />
-        } else {
-            return false
-        }
-    },
-
     render() {
         let selectCourse = this.state.coursesList.map(el => <option>{el.courseName}</option>)
         let lecturesList = this.state.lecturesList.map(el => <option>{el.lectureName}</option>)
@@ -113,7 +100,7 @@ const EditLecture = React.createClass({
                 			</div>
                 		<footer>
                 			<div className="submit_link">
-                                {this.submitMessage()}
+                                {submitMessage(this.state.message)}
                 				<input type="button" className="alt_btn" value="Редагувати" onClick={this.submitEditLecture} />
                                 <input type="button" className="alt_btn" value="Видалити" onClick={this.deleteLecture} />
                 			</div>

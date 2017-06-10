@@ -15,6 +15,7 @@ router.get('/editlecture', redirectToAdminPage)
 router.get('/changerole', redirectToAdminPage)
 router.get('/users', redirectToAdminPage)
 
+
 router.get('/courses/:courseLink', redirectToCoursesPage)
 router.get('/courses/:courseLink/:lectureLink', redirectToCoursesPage)
 
