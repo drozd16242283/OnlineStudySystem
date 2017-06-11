@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import isImage from 'server/helpers/forms/isImage'
 import createFileInput from 'server/helpers/forms/createFileInput'
-import validateAndSendCourseForm from 'server/helpers/forms/validateAndSend/validateAndSendCourseForm'
+import CourseForm from 'server/helpers/forms/validateAndSend/CourseForm'
 import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './AddCourse.css'
@@ -57,7 +57,7 @@ const AddCourse = React.createClass({
             courseLink: ++coursesCounter
         }
 
-        let responseMessage = validateAndSendCourseForm(courseData, inputImage, true)
+        let responseMessage = CourseForm(courseData, inputImage, true)
         this.setState({ message: responseMessage })
     },
 

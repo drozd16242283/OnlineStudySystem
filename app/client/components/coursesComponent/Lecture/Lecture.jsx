@@ -1,17 +1,15 @@
 import React from 'react'
 import axios from 'axios'
-
-import Comments from '../Comments'
 import isArchive from 'server/helpers/forms/isArchive'
 import submitMessage from 'server/helpers/forms/submitMessage'
+import Comments from '../Comments'
 
 import './Lecture.css'
 
 const Lecture = React.createClass({
     getInitialState() {
         return {
-            lecture: {},
-            comments: {},
+            currentLecture: {},
             message: {}
         }
     },
@@ -19,9 +17,7 @@ const Lecture = React.createClass({
     componentDidMount() {
         let url = `/courses/getlectures/${this.props.params.courseLink}/${this.props.params.lectureLink}`
         axios.get(url)
-            .then(response => this.setState(
-                { lecture: response.data.lectures[0], comments: response.data.comments[0] }
-            ))
+            .then(response => this.setState({ currentLecture: response.data.lectures[0] }))
     },
 
     submitPractical() {
@@ -39,7 +35,7 @@ const Lecture = React.createClass({
         practicalUploader.onchange = () => {
             let formData = new FormData()
                 formData.append('inputPractical', practicalUploader.files[0])
-                formData.append('practicalName', this.state.lecture.lectureName)
+                formData.append('practicalName', this.state.currentLecture.lectureName)
                 formData.append('userName', localStorage.getItem('username'))
 
             if (isArchive(practicalUploader.files[0].type)) {
@@ -58,7 +54,7 @@ const Lecture = React.createClass({
     },
 
     render() {
-        let lecture = this.state.lecture
+        let lecture = this.state.currentLecture
         let isPractical = !lecture.isLecture
             ? <div className="practicalFileInput">
                   <h5>Виберіть архів з виконаною практичною: </h5>
@@ -72,7 +68,8 @@ const Lecture = React.createClass({
                 <h1>{lecture.lectureName}</h1>
                 <p>{lecture.lectureText}</p>
                 {isPractical}
-                <Comments comments={this.state.comments} />
+                <Comments courseLink={this.props.params.courseLink}
+                          lectureLink={this.props.params.lectureLink} />
             </div>
         )
     }

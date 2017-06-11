@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import validateAndSendLectureForm from 'server/helpers/forms/validateAndSend/validateAndSendLectureForm'
+import LectureForm from 'server/helpers/forms/validateAndSend/LectureForm'
 import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './EditLecture.css'
@@ -41,7 +41,7 @@ const EditLecture = React.createClass({
             lectureText: document.querySelector('.editlectureText').value
         }
 
-        let responseMessage = validateAndSendLectureForm(editLecture, true, false)
+        let responseMessage = LectureForm(editLecture, true, false)
         this.setState({ message: responseMessage })
     },
 

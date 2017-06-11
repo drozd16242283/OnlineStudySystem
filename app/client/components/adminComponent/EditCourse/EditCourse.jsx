@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import isImage from 'server/helpers/forms/isImage'
 import createFileInput from 'server/helpers/forms/createFileInput'
-import validateAndSendCourseForm from 'server/helpers/forms/validateAndSend/validateAndSendCourseForm'
+import CourseForm from 'server/helpers/forms/validateAndSend/CourseForm'
 import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './EditCourse.css'
@@ -61,7 +61,7 @@ const EditCourse = React.createClass({
             courseDescription: document.querySelector('.editCourseDesc').value
         }
 
-        let responseMessage = validateAndSendCourseForm(editCourse, inputImage, false)
+        let responseMessage = CourseForm(editCourse, inputImage, false)
         this.setState({ message: responseMessage })
     },
 

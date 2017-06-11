@@ -8,9 +8,8 @@ export function showCoursesPage(req, res) {
 
 export function getCoursesCounter(req, res) {
     courseModel.getCoursesCounter((err, response) => {
-        if (response) {
-            res.json(response)
-        }
+        if (err) res.sendStatus(500)
+        if (response) res.json(response)
     })
 }
 
@@ -66,6 +65,19 @@ export function uploadPractical(req, res) {
 export function getAllPracticals(req, res) {
     practicalModel.getAllPracticals((err, practicalsList) => {
         let response = err ? { error: 'Помилка бази даних.' } : practicalsList
+        res.json(response)
+    })
+}
+
+export function addComment(req, res) {
+    let commentData = {
+        author: req.body.userName,
+        commentText: req.body.commentText,
+        lectureLink: +req.body.lectureLink
+    }
+
+    courseModel.addComment(+req.body.courseLink, commentData, (err, result) => {
+        let response = err ? { error: 'Помилка бази даних.' } : { commentAdded: 'Коментар додано.' }
         res.json(response)
     })
 }

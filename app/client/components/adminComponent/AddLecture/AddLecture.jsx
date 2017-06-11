@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import validateAndSendLectureForm from 'server/helpers/forms/validateAndSend/validateAndSendLectureForm'
+import LectureForm from 'server/helpers/forms/validateAndSend/LectureForm'
 import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './AddLecture.css'
@@ -43,7 +43,7 @@ const AddLecture = React.createClass({
             isLecture: document.getElementById('RadioLecture').checked
         }
 
-        let responseMessage = validateAndSendLectureForm(lectureData, true, true)
+        let responseMessage = LectureForm(lectureData, true, true)
         this.setState({ message: responseMessage })
     },
 

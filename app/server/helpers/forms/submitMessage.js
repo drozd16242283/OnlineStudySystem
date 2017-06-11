@@ -10,6 +10,9 @@ const submitMessage = (message) => {
     } else if (message.markskUpdated) {
         setTimeout(() => location.href = '/teacher', 300)
         return <img src="images/tick.png" />
+    } else if (message.commentAdded) {
+        setTimeout(() => location.href = '/', 300)
+        return <img src="../../images/tick.png" />
     } else if (message.success) {
         setTimeout(() => location.href = '/admin', 300)
         return <img src="images/tick.png" />

@@ -9,5 +9,6 @@ router.get('/getlectures/:courseLink', courseApi.getLecturesList)
 router.get('/getlectures/:courseLink/:lectureLink', courseApi.getCurrentLecture)
 router.post('/uploadpractical', courseApi.uploadPractical)
 router.get('/getpracticals', courseApi.getAllPracticals)
+router.post('/addcomment', courseApi.addComment)
 
 export default router

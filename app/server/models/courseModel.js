@@ -96,6 +96,17 @@ courseSchema.statics.deleteLecture = function(courseLink, lectureLink, callback)
     )
 }
 
+
+courseSchema.statics.addComment = function(courseLink, commentData, callback) {
+    console.log(typeof courseLink)
+    this.update(
+        { courseLink: courseLink },
+        { $push: { "comments": commentData } },
+        callback
+    )
+}
+
+
 const courseModel = mongoose.model('Course', courseSchema)
 
 export default courseModel

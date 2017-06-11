@@ -1,5 +1,7 @@
 .commentBlock {
-    height: 270px;
+    position: absolute;
+    padding-top: 100px;
+    width: 850px;
 }
 
 .commentBlock h4 {
@@ -28,5 +30,38 @@
 }
 
 .submitBlock {
+    width: 300px;
     margin: 10px 40px;
+}
+
+.submitBlock p {
+    float: left;
+    margin-top: 5px;
+}
+
+.submitBlock img {
+    width: 40px;
+    margin-left: 70px;
+}
+
+.submitBlock button {
+    float: right;
+}
+
+.commentList {
+    position: relative;
+    top: 150px;
+    left: 50px;
+    width: 700px;
+    padding-bottom: 20px;
+}
+
+.commentList img {
+    float: left;
+    width: 50px;
+    margin-right: 20px;
+}
+
+.commentList div {
+    overflow: hidden;
 }
