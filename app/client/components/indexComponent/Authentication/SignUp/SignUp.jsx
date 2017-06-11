@@ -1,8 +1,6 @@
 import React from 'react'
-
-import sendForm from 'server/helpers/forms/sendForm'
-import isFormEmpty from 'server/helpers/forms/isFormEmpty'
-
+import sendForm from 'server/helpers/forms/validateAndSend/sendForm'
+import isFormEmpty from 'server/helpers/forms/validateAndSend/isFormEmpty'
 import AuthErrorMessage from '../AuthErrorMessage'
 
 import './SignUp.css'
@@ -30,8 +28,8 @@ const SignUp = React.createClass({
                     this.setState({ registerError: response.data.error })
                 }
                 if (response.data.user) {
-                    window.localStorage.setItem("username", response.data.user.username)
-                    window.location.href = '/'
+                    localStorage.setItem("username", response.data.user.username)
+                    location.href = '/'
                 }
             })
         }

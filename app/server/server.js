@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser'
 import path from 'path'
 import passport from 'passport'
 import config from './config'
-import isAdmin from './middleware/isAdmin'
 // Session store
 const MongoStore = require('connect-mongo')(session)
 
@@ -34,16 +33,20 @@ import localPassport from './libs/authentication/authStrategyPassport'
 localPassport(passport)
 
 // Set API's to Express
+import isAdmin from './middleware/isAdmin'
+import isTeacher from './middleware/isTeacher'
+
 import authApi from '../API/authApi'
 import adminApi from '../API/adminApi'
 import courseApi from '../API/courseApi'
+import teacherApi from '../API/teacherApi'
 import mainApi from '../API/mainApi'
 
 app.use('/auth', authApi)
 app.use('/admin', isAdmin, adminApi)
 app.use('/courses', courseApi)
+app.use('/teacher', isTeacher, teacherApi)
 app.use('/', mainApi)
-
 
 
 // Starting the server

@@ -4,12 +4,11 @@ import courseModel from '../../server/models/courseModel'
 import rolesToString from '../../server/helpers/role/rolesToString'
 import roleToNumber from '../../server/helpers/role/roleToNumber'
 import uploadCourseImage from '../../server/helpers/uploads/uploadCourseImage'
-import isImage from '../../server/helpers/isImage'
+import isImage from '../../server/helpers/forms/isImage'
 
-
-const adminFile = path.resolve(__dirname, '../../public', 'admin.html')
 
 export function adminPanel(req, res) {
+    const adminFile = path.resolve(__dirname, '../../public', 'admin.html')
     res.sendFile(adminFile)
 }
 
@@ -56,15 +55,25 @@ export function addNewCourse(req, res) {
 }
 
 export function editCourse(req, res) {
-    let newCourseData = {
-        courseName: req.body.courseName,
-        newCourseName: req.body.newCourseName,
-        courseDescription: req.body.courseDescription
+    if (Object.keys(req.body).length === 0) {
+        uploadCourseImage(req, res, (err) => {
+            if (err) res.sendStatus(503)
+            if (!isImage(req.file.mimetype)) {
+                res.json({ error: 'Виберіть картинку.' })
+            }
+        })
+    } else {
+        let newCourseData = {
+            courseName: req.body.courseName,
+            newCourseName: req.body.newCourseName,
+            courseImage: req.body.courseImage,
+            courseDescription: req.body.courseDescription
+        }
+        courseModel.editCourse(newCourseData, (err, result) => {
+            let response = err ? { error: 'Помилка бази даних.' } : { success: 'Курс оновлено.' }
+            res.json(response)
+        })
     }
-    courseModel.editCourse(newCourseData, (err, result) => {
-        let response = err ? { error: 'Помилка бази даних.' } : { success: 'Курс оновлено.' }
-        res.json(response)
-    })
 }
 
 export function deleteCourse(req, res) {

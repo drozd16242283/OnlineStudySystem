@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-
-import isFormEmpty from 'server/helpers/forms/isFormEmpty'
-import sendForm from 'server/helpers/forms/sendForm'
+import isImage from 'server/helpers/forms/isImage'
+import createFileInput from 'server/helpers/forms/createFileInput'
+import validateAndSendCourseForm from 'server/helpers/forms/validateAndSend/validateAndSendCourseForm'
 import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './EditCourse.css'
@@ -30,24 +30,39 @@ const EditCourse = React.createClass({
         this.setState({ selectedCourse: selectedCourse })
     },
 
+    editCourseImage() {
+        let editInputUploader = createFileInput()
+
+        editInputUploader.click()
+        editInputUploader.onchange = () => {
+            let formData = new FormData()
+            formData.append('courseImage', editInputUploader.files[0])
+
+            if (isImage(editInputUploader.files[0].type)) {
+                axios.post('/admin/editcourse', formData)
+                document.querySelector('.editCourseMessage').classList.add('show')
+                this.setState({ message: { imgUploadSuccess: 'Зображення загружено' } })
+            } else {
+                this.setState({ message: { error: 'Виберіть зображення!' } })
+            }
+        }
+
+        document.body.appendChild(editInputUploader)
+    },
+
     submitEditCourse() {
+        let inputImage = document.querySelector('input[name="courseImage"]')
+        let courseImageName = (inputImage != null) ? inputImage.files[0].name : false
+
         let editCourse = {
             courseName: document.querySelector('.selectCourse_edit select').value,
             newCourseName: document.querySelector('.editCourseName').value,
+            courseImage: courseImageName,
             courseDescription: document.querySelector('.editCourseDesc').value
         }
 
-        if (isFormEmpty(editCourse)) {
-            this.setState({ message: { error: 'Заповніть форму!' } })
-        } else if (editCourse.courseDescription.length > 175) {
-            this.setState({ message: { error: 'Занадто великий опис!' } })
-        } else if (editCourse.courseName.length > 30) {
-            this.setState({ message: { error: 'Занадто велика назва курсу!' } })
-        } else {
-            sendForm(editCourse, '/admin/editcourse')
-                .then(response => this.setState({ message: response.data }))
-        }
-
+        let responseMessage = validateAndSendCourseForm(editCourse, inputImage, false)
+        this.setState({ message: responseMessage })
     },
 
     getSelectedCourseInfo() {
@@ -81,6 +96,11 @@ const EditCourse = React.createClass({
             		<article className="module width_full hide">
             			<header><h3>Редагувати курс</h3></header>
             				<div className="module_content">
+                                <fieldset className="editCourseImage">
+                                    <label>Зображення</label>
+                                    <button className="btn btn-primary" onClick={this.editCourseImage}>Виберіть зображення</button>
+                                    <div className="editCourseMessage">{submitMessage(this.state.message)}</div>
+                                </fieldset>
             					<fieldset>
             						<label>Назва курсу</label>
             						<input type="text" className="editCourseName" />
@@ -91,7 +111,7 @@ const EditCourse = React.createClass({
             					</fieldset>
             				</div>
             			<footer>
-            				<div className="submit_link">
+            				<div className="edit_submit_link">
                                 {submitMessage(this.state.message)}
             					<input type="button" className="alt_btn" value="Редагувати" onClick={this.submitEditCourse} />
                                 <input type="button" className="alt_btn" value="Видалити" onClick={this.deleteCourse} />

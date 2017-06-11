@@ -1,4 +1,6 @@
 import courseModel from '../../server/models/courseModel'
+import practicalModel from '../../server/models/practicalModel'
+import uploadPracticalArchive from '../../server/helpers/uploads/uploadPractical'
 
 export function showCoursesPage(req, res) {
     res.redirect('/')
@@ -37,4 +39,33 @@ export function getCurrentLecture(req, res) {
         lecture ? res.json(lecture) : res.redirect('/courses')
     })
 
+}
+
+export function uploadPractical(req, res) {
+    uploadPracticalArchive(req, res, (err) => {
+        if (err) res.sendStatus(503)
+
+        let practicalData = {
+            userName: req.body.userName,
+            practicalName: req.body.practicalName,
+            fileName: req.file.filename,
+            mark: 0,
+            fileDestination: req.file.destination,
+            filePath: req.file.path
+        }
+
+        let newPractical = new practicalModel(practicalData)
+        newPractical.addNewPractical(newPractical, (err, practical) => {
+            let response = err ? { error: 'Помилка бази даних.' } : { success: 'Практичну додано.' }
+            res.json(response)
+        })
+
+    })
+}
+
+export function getAllPracticals(req, res) {
+    practicalModel.getAllPracticals((err, practicalsList) => {
+        let response = err ? { error: 'Помилка бази даних.' } : practicalsList
+        res.json(response)
+    })
 }

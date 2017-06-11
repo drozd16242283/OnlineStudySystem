@@ -11,6 +11,17 @@ const Header = React.createClass({
         }
     },
 
+    linkToRolePage() {
+        let role = localStorage.getItem('role')
+        if (role == 1) {
+            return <li><a href="/admin">Панель адміністратора</a></li>
+        } else if (role == 2) {
+            return <li><a href="/teacher">Сторінка вчителя</a></li>
+        } else {
+            return <li><Link to="/about">Про нас</Link></li>
+        }
+    },
+
     logOut() {
         localStorage.clear()
         location.href = '/auth/logout'
@@ -18,19 +29,12 @@ const Header = React.createClass({
 
     render() {
         let userName = localStorage.getItem('username') || false
-        let linkToAdminPanel = (localStorage.getItem('role') == 1)
-            ? <li><a href="/admin">Адмінка</a></li>
-            : false
-
         return (
             <div>
                 <header className="header">
                     <nav className="navbar navbar-inverse" role="navigation">
                         <a className="navbar-brand" href="/">Система онлайн навчання КПІК</a>
-                        <ul className="nav navbar-nav">
-                            {linkToAdminPanel}
-                            <li><Link to="/about">Про нас</Link></li>
-                        </ul>
+                        <ul className="nav navbar-nav">{this.linkToRolePage()}</ul>
                         <div className="user hidden-sm">
                             <div className="userLogo"><img src="images/man.png" /></div>
                             <h5>{userName}</h5>

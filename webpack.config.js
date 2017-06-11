@@ -20,7 +20,8 @@ module.exports = {
 	context: ENTRY_DIR,
 	entry: {
 		index: './index',
-		admin: './admin'
+		admin: './admin',
+		teacher: './teacher'
 	},
 	resolve: {
 		root: `${__dirname}/app`,

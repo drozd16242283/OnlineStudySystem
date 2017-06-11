@@ -78,6 +78,26 @@ section#main {
     color: #666;
 }
 
+.editCourseImage {
+    width: 450px;
+}
+
+.editCourseImage label {
+    padding-top: 10px;
+}
+
+.editCourseImage button {
+    float: left;
+}
+
+.editCourseImage img {
+    width: 30px;
+    margin-left: 20px;
+}
+
+.editCourseMessage {
+    display: none;
+}
 
 /* New/Edit Article Module */
 
@@ -173,13 +193,13 @@ fieldset textarea:focus {
     margin: 8px 0px;
 }
 
-.submit_link {
+.edit_submit_link {
     float: right;
     margin-right: 3%;
     padding-top: 5px;
 }
 
-.submit_link img {
+.edit_submit_link img {
     float: left;
     margin-right: 20px;
     padding-bottom: 5px;
@@ -187,7 +207,7 @@ fieldset textarea:focus {
     height: 30px;
 }
 
-.submit_link p {
+.edit_submit_link p {
     float: left;
     margin-right: 50px;
     font-weight: bold;

@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-
-import isFormEmpty from 'server/helpers/forms/isFormEmpty'
-import sendForm from 'server/helpers/forms/sendForm'
+import validateAndSendLectureForm from 'server/helpers/forms/validateAndSend/validateAndSendLectureForm'
 import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './EditLecture.css'
@@ -12,8 +10,7 @@ const EditLecture = React.createClass({
         return {
             coursesList: [],
             lecturesList: [],
-            message: {},
-            link: ''
+            message: {}
         }
     },
 
@@ -22,7 +19,7 @@ const EditLecture = React.createClass({
             .then(response => this.setState({ coursesList: response.data }))
     },
 
-    showSelectLecture() {
+    showLecturesSelect() {
         document.querySelector('.selectLecture_edit').classList.remove('hide')
 
         let selectedCourse = this.state.coursesList.filter(el => {
@@ -44,14 +41,8 @@ const EditLecture = React.createClass({
             lectureText: document.querySelector('.editlectureText').value
         }
 
-        if (isFormEmpty(editLecture)) {
-            this.setState({ message: { error: 'Заповніть форму!' } })
-        } else if (editLecture.newLectureName.length > 40) {
-            this.setState({ message: { error: 'Занадто велика назва лекції!' } })
-        } else {
-            sendForm(editLecture, '/admin/editlecture')
-                .then(response => this.setState({ message: response.data }))
-        }
+        let responseMessage = validateAndSendLectureForm(editLecture, true, false)
+        this.setState({ message: responseMessage })
     },
 
     deleteLecture() {
@@ -75,7 +66,7 @@ const EditLecture = React.createClass({
                     <div className="selectCourse_edit">
                         <p>Виберіть курс: </p>
                         <select>{selectCourse}</select>
-                        <button className="btn btn-success" onClick={this.showSelectLecture}>Підтвердити</button>
+                        <button className="btn btn-success" onClick={this.showLecturesSelect}>Підтвердити</button>
                     </div>
                     <div className="selectLecture_edit hide">
                         <p>Виберіть лекцію: </p>

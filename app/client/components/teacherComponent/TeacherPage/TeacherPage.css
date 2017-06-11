@@ -1,0 +1,31 @@
+.teacherPage {
+    margin-top: 50px;
+}
+
+.practical {
+    background: #F8F8F8;
+    height: 55px;
+    border-bottom: 1px solid #adadad;
+}
+
+.practical p {
+    float: left;
+    margin-right: 20px;
+}
+
+.practical select {
+    padding-left: 45px;
+    border-radius: 10px;
+    width: 100px;
+    height: 33px;
+}
+
+.table th {
+    font-size: 20px;
+}
+
+.marksMessage img {
+    width: 40px;
+    height: 40px;
+    margin-left: 30px;
+}

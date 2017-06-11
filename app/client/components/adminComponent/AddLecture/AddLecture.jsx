@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-
-import isFormEmpty from 'server/helpers/forms/isFormEmpty'
-import sendForm from 'server/helpers/forms/sendForm'
+import validateAndSendLectureForm from 'server/helpers/forms/validateAndSend/validateAndSendLectureForm'
 import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './AddLecture.css'
@@ -36,6 +34,7 @@ const AddLecture = React.createClass({
 
     submitNewLecture() {
         let lectureCounter = this.getLecturesCounter()
+
         let lectureData = {
             courseName: document.querySelector('.selectCourse').value,
             lectureName: document.querySelector('.inputLectureName').value,
@@ -44,14 +43,8 @@ const AddLecture = React.createClass({
             isLecture: document.getElementById('RadioLecture').checked
         }
 
-        if (isFormEmpty(lectureData)) {
-            this.setState({ message: { error: 'Заповніть форму!' } })
-        } else if (lectureData.lectureName.length > 40) {
-            this.setState({ message: { error: 'Занадто велика назва лекції!' } })
-        } else {
-            sendForm(lectureData, '/admin/addlecture')
-                .then(response => this.setState({ message: response.data }))
-        }
+        let responseMessage = validateAndSendLectureForm(lectureData, true, true)
+        this.setState({ message: responseMessage })
     },
 
     render() {

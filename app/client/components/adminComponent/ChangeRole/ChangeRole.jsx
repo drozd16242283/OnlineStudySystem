@@ -1,9 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-
-import sendForm from 'server/helpers/forms/sendForm'
+import sendForm from 'server/helpers/forms/validateAndSend/sendForm'
 import submitMessage from 'server/helpers/forms/submitMessage'
-
 
 import './ChangeRole.css'
 

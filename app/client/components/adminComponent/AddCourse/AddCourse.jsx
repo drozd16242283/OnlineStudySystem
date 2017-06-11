@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-
-import isFormEmpty from 'server/helpers/forms/isFormEmpty'
-import sendForm from 'server/helpers/forms/sendForm'
+import isImage from 'server/helpers/forms/isImage'
+import createFileInput from 'server/helpers/forms/createFileInput'
+import validateAndSendCourseForm from 'server/helpers/forms/validateAndSend/validateAndSendCourseForm'
 import submitMessage from 'server/helpers/forms/submitMessage'
 
 import './AddCourse.css'
@@ -18,41 +18,37 @@ const AddCourse = React.createClass({
     componentDidMount() {
         axios.get('/courses/coursescounter')
             .then(response => {
-                let coursesCounter = 0
                 if (response.data.length > 0) {
-                    coursesCounter = response.data[0].courseLink
+                    this.setState({ coursesCounter: response.data[0].courseLink })
                 }
-                this.setState({ coursesCounter: coursesCounter })
             })
     },
 
     submitCourseImage() {
-        let oldInput = document.querySelector('input[name="courseImage"]')
-        if (oldInput != null) {
-            oldInput.parentElement.removeChild(oldInput)
-        }
-
-        let inputUploader = document.createElement('input')
-            inputUploader.type = 'file'
-            inputUploader.name = 'courseImage'
-            inputUploader.classList.add('hide')
+        let inputUploader = createFileInput()
 
         inputUploader.click()
         inputUploader.onchange = () => {
             let formData = new FormData()
             formData.append('courseImage', inputUploader.files[0])
 
-            axios.post('/admin/newcourse', formData)
-                .then(response => this.setState({ message: response.data }))
+            if (isImage(inputUploader.files[0].type)) {
+                axios.post('/admin/newcourse', formData)
+                document.querySelector('.submitCourseMessage').classList.add('show')
+                this.setState({ message: { imgUploadSuccess: 'Зображення загружено' } })
+            } else {
+                this.setState({ message: { error: 'Виберіть зображення!' } })
+            }
         }
 
         document.body.appendChild(inputUploader)
     },
 
     submitNewCourse() {
-        let coursesCounter = this.state.coursesCounter
+        document.querySelector('.course_submit_link img').classList.add('show')
         let inputImage = document.querySelector('input[name="courseImage"]')
         let courseImageName = (inputImage != null) ? inputImage.files[0].name : false
+        let coursesCounter = this.state.coursesCounter
 
         let courseData = {
             courseName: document.querySelector('.inputCourseName').value,
@@ -61,18 +57,8 @@ const AddCourse = React.createClass({
             courseLink: ++coursesCounter
         }
 
-        if (isFormEmpty(courseData)) {
-            this.setState({ message: { error: 'Заповніть форму!' } })
-        } else if (courseData.courseName.length > 30) {
-            this.setState({ message: { error: 'Занадто велика назва курсу!' } })
-        } else if (courseData.courseDescription.length > 175) {
-            this.setState({ message: { error: 'Занадто великий опис!' } })
-        } else if (inputImage == null) {
-            this.setState({ message: { error: 'Виберіть зображення!' } })
-        } else {
-            sendForm(courseData, '/admin/newcourse')
-                .then(response => this.setState({ message: response.data }))
-        }
+        let responseMessage = validateAndSendCourseForm(courseData, inputImage, true)
+        this.setState({ message: responseMessage })
     },
 
     render() {
@@ -85,6 +71,7 @@ const AddCourse = React.createClass({
                                 <fieldset className="inputCourseImage">
                                     <label>Зображення</label>
                                     <button className="btn btn-primary" onClick={this.submitCourseImage}>Виберіть зображення</button>
+                                    <div className="submitCourseMessage">{submitMessage(this.state.message)}</div>
                                 </fieldset>
             					<fieldset>
             						<label>Назва курсу</label>
@@ -96,7 +83,7 @@ const AddCourse = React.createClass({
             					</fieldset>
             				</div>
             			<footer>
-            				<div className="submit_link">
+            				<div className="course_submit_link">
                                 {submitMessage(this.state.message)}
             					<input type="button" className="alt_btn" value="Опублікувати" onClick={this.submitNewCourse} />
             				</div>

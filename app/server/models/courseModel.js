@@ -39,6 +39,7 @@ courseSchema.statics.editCourse = function(newCourseData, callback) {
         { $set:
             {
                 courseName: newCourseData.newCourseName,
+                courseImage: newCourseData.courseImage,
                 courseDescription: newCourseData.courseDescription
             }
         },

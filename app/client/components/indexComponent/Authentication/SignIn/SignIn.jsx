@@ -1,12 +1,9 @@
 import React from 'react'
-
-import sendForm from 'server/helpers/forms/sendForm'
-import isFormEmpty from 'server/helpers/forms/isFormEmpty'
-
+import sendForm from 'server/helpers/forms/validateAndSend/sendForm'
+import isFormEmpty from 'server/helpers/forms/validateAndSend/isFormEmpty'
 import AuthErrorMessage from '../AuthErrorMessage'
 
 import './SignIn.css'
-
 
 const SignIn = React.createClass({
     getInitialState() {
@@ -33,9 +30,13 @@ const SignIn = React.createClass({
                 } else if (user) {
                     localStorage.setItem("username", user.username)
                     localStorage.setItem("role", user.role)
-                    let redirectUrl = (user.role === 1) ? '/admin' : '/'
-
-                    location.href = redirectUrl
+                    if (user.role === 1) {
+                        location.href = '/admin'
+                    } else if (user.role === 2) {
+                        location.href = '/teacher'
+                    } else {
+                        location.href = '/'
+                    }
                 }
             })
         }

@@ -13,10 +13,27 @@
 }
 
 .practicalFileInput {
-    margin-top: 50px;
+    margin-top: 100px;
+    height: 100px;
+}
+
+.practicalFileInput h5 {
+    float: left;
+    margin-right: 20px;
+}
+
+.practicalFileInput button {
+    float: left;
+    margin-top: 5px;
+}
+
+.practicalFileInput img {
+    width: 40px;
+    margin-left: 20px;
 }
 
 .practicalFileInput p {
     float: left;
-    margin-right: 20px;
+    margin: 10px 20px;
+    font-weight: 600;
 }
