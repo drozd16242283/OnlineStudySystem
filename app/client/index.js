@@ -1,13 +1,14 @@
 import React from 'react'
 import reactDOM from 'react-dom'
-import { browserHistory, Router, Route, IndexRoute } from 'react-router'
+import { browserHistory, Router, Route, IndexRoute, Redirect } from 'react-router'
 
 import Header from './components/indexComponent/Header'
 import IndexComponent from './components/indexComponent/index'
 import CoursesList from './components/coursesComponent/CoursesList'
-import LecturesList from './components/coursesComponent/LecturesList'
+import Lectures from './components/coursesComponent/Lectures'
 import Lecture from './components/coursesComponent/Lecture'
 import About from './components/aboutComponent'
+
 
 const checkAuth = () => {
     if (localStorage.username) browserHistory.push('/courses')
@@ -19,8 +20,9 @@ reactDOM.render(
             <IndexRoute component={IndexComponent} />
             { checkAuth() }
             <Route component={CoursesList} path="courses" />
-            <Route component={LecturesList} path="courses/:courseLink" />
-            <Route component={Lecture} path="courses/:courseLink/:lectureLink" />
+            <Route component={Lectures} path="/courses/:courseLink">
+                <Route component={Lecture} path=":lectureLink" />
+            </Route>
             <Route component={About} path="about" />
         </Route>
     </Router>,

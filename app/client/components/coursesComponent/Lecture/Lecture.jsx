@@ -9,15 +9,28 @@ import './Lecture.css'
 const Lecture = React.createClass({
     getInitialState() {
         return {
-            currentLecture: {},
-            message: {}
+            currentLecture: [],
+            message: {},
+            test: ''
         }
     },
 
     componentDidMount() {
-        let url = `/courses/getlectures/${this.props.params.courseLink}/${this.props.params.lectureLink}`
-        axios.get(url)
+        this.getLecturesList(this.props.params.lectureLink)
             .then(response => this.setState({ currentLecture: response.data.lectures[0] }))
+
+    },
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.params.lectureLink !== this.props.params.lectureLink) {
+            this.getLecturesList(nextProps.params.lectureLink)
+                .then(response => this.setState({ currentLecture: response.data.lectures[0] }))
+        }
+    },
+
+    getLecturesList(link) {
+        let url = `/courses/getlectures/${this.props.params.courseLink}/${link}`
+        return axios.get(url)
     },
 
     submitPractical() {
@@ -54,6 +67,7 @@ const Lecture = React.createClass({
     },
 
     render() {
+
         let lecture = this.state.currentLecture
         let isPractical = !lecture.isLecture
             ? <div className="practicalFileInput">

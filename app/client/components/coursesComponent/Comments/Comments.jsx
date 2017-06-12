@@ -51,7 +51,7 @@ const Comments = React.createClass({
 
     render() {
         return (
-            <div className="container commentBlock">
+            <div className="commentBlock">
                 <h4>Коментарі</h4>
                 <hr />
                 <textarea rows="4" className="commentText"></textarea>

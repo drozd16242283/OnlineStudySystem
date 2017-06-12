@@ -12,13 +12,14 @@ const LecturesList = React.createClass({
     },
 
     componentDidMount() {
-        let url = `/courses/getlectures/${this.props.params.courseLink}`
+        let url = `/courses/getlectures/${this.props.courseLink}` //${this.props.courseLink}
         axios.get(url)
             .then(response => this.setState({ lecturesList: response.data }))
     },
 
+
     getLecturesList() {
-        let courseLink = this.props.params.courseLink
+        let courseLink = this.props.courseLink
         let courseCount = 1
         let lecturesList = this.state.lecturesList.map(el => {
             let isLecture = !el.isLecture ? <h5>Практична</h5> : false
@@ -26,7 +27,7 @@ const LecturesList = React.createClass({
                 <li className="list-group-item lecture">
                     <span>{courseCount++}.</span>
                     {isLecture}
-                    <Link to={`/courses/${courseLink}/${el.lectureLink}`}>{el.lectureName}</Link>
+                    <Link to={`/${this.props.linkToCourses}/${el.lectureLink}`}>{el.lectureName}</Link>
                 </li>
             )
         })
@@ -42,6 +43,8 @@ const LecturesList = React.createClass({
                     <h3>Список доступних лекцій: </h3>
                     <ul className="list-group">
                         {this.getLecturesList()}
+                        {this.props.children}
+
                     </ul>
                 </div>
             </div>

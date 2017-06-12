@@ -7,6 +7,10 @@
     margin-bottom: 30px;
 }
 
+.usersBlock button {
+    margin: 10px 70px;
+}
+
 .usersList {
     padding-left: 20px;
 }

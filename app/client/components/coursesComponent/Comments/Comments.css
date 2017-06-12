@@ -1,6 +1,6 @@
 .commentBlock {
     position: absolute;
-    padding-top: 100px;
+    margin-top: 50px;
     width: 850px;
 }
 
@@ -51,8 +51,8 @@
 .commentList {
     position: relative;
     top: 150px;
-    left: 50px;
-    width: 700px;
+    left: 20px;
+    width: 750px;
     padding-bottom: 20px;
 }
 

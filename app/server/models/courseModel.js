@@ -1,11 +1,5 @@
 import mongoose from '../libs/mongoose'
 
-/*let commentSchema = new mongoose.Schema({
-    author: String,
-    commentText: String,
-    role: Number
-})*/
-
 let courseSchema = new mongoose.Schema({
     courseName: String,
     courseDescription: String,
@@ -91,17 +85,21 @@ courseSchema.statics.editLecture = function(newLectureData, callback) {
 courseSchema.statics.deleteLecture = function(courseLink, lectureLink, callback) {
     this.update(
         { courseLink: courseLink },
-        { $pull: { lectures: { lectureLink: lectureLink } }},
+        { $pull:
+            {
+                lectures: { lectureLink: lectureLink },
+                comments: { lectureLink: lectureLink }
+            },
+        },
         callback
     )
 }
 
 
 courseSchema.statics.addComment = function(courseLink, commentData, callback) {
-    console.log(typeof courseLink)
     this.update(
         { courseLink: courseLink },
-        { $push: { "comments": commentData } },
+        { $push: { comments: commentData } },
         callback
     )
 }
