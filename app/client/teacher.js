@@ -2,8 +2,8 @@ import React from 'react'
 import reactDOM from 'react-dom'
 import { browserHistory, Router, Route, IndexRoute } from 'react-router'
 
-import Header from './components/indexComponent/Header'
-import TeacherPage from './components/teacherComponent/TeacherPage'
+import Header from './components/IndexPage/Header'
+import TeacherPage from './components/TeacherPage'
 
 reactDOM.render(
     <Router history={browserHistory}>

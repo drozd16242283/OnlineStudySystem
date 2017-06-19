@@ -23,10 +23,29 @@ export function getAllCourses(req, res) {
 export function getLecturesList(req, res) {
     courseModel.getAllLectures(req.params.courseLink, (err, lecturesList) => {
         if (err) return res.sendStatus(500)
-        let response = (lecturesList.length)
+        let result = (lecturesList.length)
             ? lecturesList[0].lectures
             : { error: 'Лекції не знайдено.' }
-        res.json(response)
+
+        let sortedLectures = result.map(el => el)
+                .reduce((lecture, line) => {
+                    lecture[line.lectureName] = lecture[line.lectureName] || []
+                    lecture[line.lectureName].push({
+                        isLecture: line.isLecture,
+                        lectureLink: line.lectureLink,
+                        lectureText: line.lectureText
+                    })
+                    return lecture
+                }, {})
+
+        let responseArray = []
+        for (let i in sortedLectures) {
+            responseArray.push({
+                lectureName: i,
+                lectureBody: sortedLectures[i]
+            })
+        }
+        res.json(responseArray)
     })
 }
 

@@ -1,8 +1,8 @@
 import isFormEmpty from './isFormEmpty'
 import sendForm from './sendForm'
 
-const validateAndSendLectureForm = (lectureForm, inputImage, isAdd) => {
-    let uploadLink = isAdd ? '/admin/addlecture' : '/admin/editlecture'
+const validateAndSendLectureForm = (lectureForm, addOrEdit) => {
+    let uploadLink = (addOrEdit == 'add') ? '/admin/addlecture' : '/admin/editlecture'
     let resultMessage = {}
 
     if (isFormEmpty(lectureForm)) {

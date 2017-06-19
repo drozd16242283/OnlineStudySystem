@@ -1,13 +1,13 @@
 import React from 'react'
 import reactDOM from 'react-dom'
-import { browserHistory, Router, Route, IndexRoute, Redirect } from 'react-router'
+import { browserHistory, Router, Route, IndexRoute } from 'react-router'
 
-import Header from './components/indexComponent/Header'
-import IndexComponent from './components/indexComponent/index'
-import CoursesList from './components/coursesComponent/CoursesList'
-import Lectures from './components/coursesComponent/Lectures'
-import Lecture from './components/coursesComponent/Lecture'
-import About from './components/aboutComponent'
+import Header from './components/IndexPage/Header'
+import IndexPage from './components/IndexPage'
+import CoursesList from './components/CoursesPage/CoursesList'
+import LecturesListWrap from './components/CoursesPage/LecturesListWrap'
+import Lecture from './components/CoursesPage/Lecture'
+import About from './components/IndexPage/About'
 
 
 const checkAuth = () => {
@@ -17,10 +17,10 @@ const checkAuth = () => {
 reactDOM.render(
     <Router history={browserHistory}>
         <Route component={Header} path="/" >
-            <IndexRoute component={IndexComponent} />
+            <IndexRoute component={IndexPage} />
             { checkAuth() }
             <Route component={CoursesList} path="courses" />
-            <Route component={Lectures} path="/courses/:courseLink">
+            <Route component={LecturesListWrap} path="/courses/:courseLink">
                 <Route component={Lecture} path=":lectureLink" />
             </Route>
             <Route component={About} path="about" />

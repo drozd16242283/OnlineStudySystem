@@ -4,7 +4,6 @@ import courseModel from '../../server/models/courseModel'
 import rolesToString from '../../server/helpers/role/rolesToString'
 import roleToNumber from '../../server/helpers/role/roleToNumber'
 import uploadCourseImage from '../../server/helpers/uploads/uploadCourseImage'
-import isImage from '../../server/helpers/forms/isImage'
 
 
 export function adminPanel(req, res) {
@@ -32,23 +31,24 @@ export function changeUserRole(req, res) {
 
 export function addNewCourse(req, res) {
     if (Object.keys(req.body).length === 0) {
+        console.log('img')
         uploadCourseImage(req, res, (err) => {
+            //err ? res.sendStatus(503) : res.sendStatus(200)
             if (err) res.sendStatus(503)
-            if (!isImage(req.file.mimetype)) {
-                res.json({ error: 'Виберіть картинку.' })
-            }
         })
     } else {
-        let courseData = {
+        const courseData = {
             courseName: req.body.courseName,
             courseImage: req.body.courseImage,
             courseDescription: req.body.courseDescription,
             courseLink: req.body.courseLink
         }
+        console.log('test')
 
-        let newCourse = new courseModel(courseData)
+        const newCourse = new courseModel(courseData)
         newCourse.addNewCourse(newCourse, (err, course) => {
-            let response = err ? { error: 'Помилка бази даних.' } : { success: 'Курс створено.' }
+            //err ? res.sendStatus(503) : res.sendStatus(200)
+            let response = err ? { error: 'Помилка бази даних.' } : { success: 'Курс створено!' }
             res.json(response)
         })
     }
@@ -57,10 +57,7 @@ export function addNewCourse(req, res) {
 export function editCourse(req, res) {
     if (Object.keys(req.body).length === 0) {
         uploadCourseImage(req, res, (err) => {
-            if (err) res.sendStatus(503)
-            if (!isImage(req.file.mimetype)) {
-                res.json({ error: 'Виберіть картинку.' })
-            }
+            err ? res.sendStatus(503) : res.sendStatus(200)
         })
     } else {
         let newCourseData = {
@@ -70,8 +67,7 @@ export function editCourse(req, res) {
             courseDescription: req.body.courseDescription
         }
         courseModel.editCourse(newCourseData, (err, result) => {
-            let response = err ? { error: 'Помилка бази даних.' } : { success: 'Курс оновлено.' }
-            res.json(response)
+            err ? res.sendStatus(503) : res.sendStatus(200)
         })
     }
 }
