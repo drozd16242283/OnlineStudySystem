@@ -29,9 +29,7 @@ const AdminSidebar = () => {
         		<ul>
         			<li className="icn_jump_back"><Link to="/logout">Logout</Link></li>
         		</ul>
-                <ul>
-                    <li><Link to="/textarea">Text Area</Link></li>
-                </ul>
+                
         	</aside>
         </div>
     )

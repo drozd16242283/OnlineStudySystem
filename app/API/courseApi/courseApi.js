@@ -27,22 +27,24 @@ export function getLecturesList(req, res) {
             ? lecturesList[0].lectures
             : { error: 'Лекції не знайдено.' }
 
-        let sortedLectures = result.map(el => el)
-                .reduce((lecture, line) => {
-                    lecture[line.lectureName] = lecture[line.lectureName] || []
+        let sortedLecturesList = result
+            .map(el => el)
+            .reduce((lecture, line) => {
+                lecture[line.lectureName] = lecture[line.lectureName] || []
+                if (lecture[line.lectureName].length < 2) {
                     lecture[line.lectureName].push({
                         isLecture: line.isLecture,
-                        lectureLink: line.lectureLink,
-                        lectureText: line.lectureText
+                        lectureLink: line.lectureLink
                     })
-                    return lecture
-                }, {})
+                }
+                return lecture
+            }, {})
 
         let responseArray = []
-        for (let i in sortedLectures) {
+        for (let item in sortedLecturesList) {
             responseArray.push({
-                lectureName: i,
-                lectureBody: sortedLectures[i]
+                lectureName: item,
+                lectureBody: sortedLecturesList[item]
             })
         }
         res.json(responseArray)

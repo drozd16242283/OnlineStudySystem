@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt-node'
+import config from '../config'
 import mongoose from '../libs/mongoose'
 
 let userSchema = new mongoose.Schema({
@@ -46,7 +47,7 @@ userSchema.statics.changeUserRole = function(roleData, callback) {
 
 userSchema.methods.createUser = function(newUser, callback) {
     newUser.password = this.encryptPassword(newUser.password)
-    newUser.role = 3
+    newUser.role = config.get('defaultUserRole')
 
     newUser.save(callback)
 }

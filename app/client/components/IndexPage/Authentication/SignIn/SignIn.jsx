@@ -1,6 +1,7 @@
 import React from 'react'
 import sendForm from 'server/helpers/forms/validateAndSend/sendForm'
 import isFormEmpty from 'server/helpers/forms/validateAndSend/isFormEmpty'
+import redirectByUserRole from 'server/helpers/redirectByUserRole'
 import AuthErrorMessage from '../AuthErrorMessage'
 
 import './SignIn.css'
@@ -22,21 +23,13 @@ const SignIn = React.createClass({
             this.setState({ loginError: 'Заповніть форму!' })
         } else {
             sendForm(formData, '/auth/signin').then(response => {
-                let error = response.data.error
-                let user = response.data.user
-
-                if (error) {
-                    this.setState({ loginError: error })
-                } else if (user) {
+                if (response.data.error) {
+                    this.setState({ loginError: response.data.error })
+                } else if (response.data.user) {
+                    const user = response.data.user
                     localStorage.setItem("username", user.username)
                     localStorage.setItem("role", user.role)
-                    if (user.role === 1) {
-                        location.href = '/admin'
-                    } else if (user.role === 2) {
-                        location.href = '/teacher'
-                    } else {
-                        location.href = '/'
-                    }
+                    redirectByUserRole(user.role)
                 }
             })
         }

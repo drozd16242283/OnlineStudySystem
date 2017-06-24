@@ -1,10 +1,10 @@
 import React from 'react'
 import sendForm from 'server/helpers/forms/validateAndSend/sendForm'
 import isFormEmpty from 'server/helpers/forms/validateAndSend/isFormEmpty'
+import redirectByUserRole from 'server/helpers/redirectByUserRole'
 import AuthErrorMessage from '../AuthErrorMessage'
 
 import './SignUp.css'
-
 
 const SignUp = React.createClass({
     getInitialState() {
@@ -26,10 +26,11 @@ const SignUp = React.createClass({
             sendForm(formData, '/auth/signup').then(response => {
                 if (response.data.error) {
                     this.setState({ registerError: response.data.error })
-                }
-                if (response.data.user) {
-                    localStorage.setItem("username", response.data.user.username)
-                    location.href = '/'
+                } else if (response.data.user) {
+                    const user = response.data.user
+                    localStorage.setItem("username", user.username)
+                    localStorage.setItem("role", user.role)
+                    redirectByUserRole(user.role)
                 }
             })
         }

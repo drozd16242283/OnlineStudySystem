@@ -18,28 +18,24 @@ const LecturesList = React.createClass({
     },
 
     getLecturesList() {
-        let courseLink = this.props.courseLink
-        let lecturesList = this.state.lecturesList.map(el => {
-            let lectureLink = el.lectureBody.map(lecture => lecture.lectureLink)
-            let isLecture = el.lectureBody.map(lecture => lecture.isLecture)
+        let lecturesList = this.state.lecturesList.map(lecture => {
+            const courseLink = this.props.courseLink
+            let ArrayOfLectureLinks = lecture.lectureBody.map(lectureBody => lectureBody.lectureLink)
+            let isLecturesArray = lecture.lectureBody.map(lectureBody => lectureBody.isLecture)
 
-            let lectureType = ''
-            let firstLink = false
-            let secoundLink = false
+            let firstLinkLectureType = (isLecturesArray[0]) ? 'Лекція' : 'Практична'
+            let secoundLinkLectureType = (isLecturesArray[1]) ? 'Лекція' : 'Практична'
 
-            if (lectureLink.length === 1) {
-                lectureType = (isLecture[0]) ? 'Лекція' : 'Практична'
-                firstLink = <h5><Link to={`/courses/${courseLink}/${lectureLink[0]}`}>{lectureType}</Link></h5>
-            } else if (lectureLink.length === 2) {
-                lectureType = (isLecture[0]) ? 'Лекція' : 'Практична'
-                firstLink = <h5><Link to={`/courses/${courseLink}/${lectureLink[0]}`}>{lectureType}</Link></h5>
-                lectureType = (isLecture[1]) ? 'Лекція' : 'Практична'
-                secoundLink = <h5><Link to={`/courses/${courseLink}/${lectureLink[1]}`}>{lectureType}</Link></h5>
-            }
+            let firstLink = (ArrayOfLectureLinks.length > 0)
+                ? <h5><Link to={`/courses/${courseLink}/${ArrayOfLectureLinks[0]}`}>{firstLinkLectureType}</Link></h5>
+                : false
+            let secoundLink = (ArrayOfLectureLinks.length === 2)
+                ? <h5><Link to={`/courses/${courseLink}/${ArrayOfLectureLinks[1]}`}>{secoundLinkLectureType}</Link></h5>
+                : false
 
             return (
                 <li className="lecture">
-                    <h4>{el.lectureName}</h4>
+                    <h4>{lecture.lectureName}</h4>
                     {firstLink}
                     {secoundLink}
                 </li>
@@ -49,11 +45,15 @@ const LecturesList = React.createClass({
     },
 
     render() {
+        const lecturesList = (this.state.lecturesList.length > 0)
+            ? this.getLecturesList()
+            : <h5>Для даного курсу поки немає лекцій.</h5>
+
         return (
             <div className="lecturesBlock">
                 <div className="lecturesList">
                     <ul>
-                        {this.getLecturesList()}
+                        {lecturesList}
                         {this.props.children}
                     </ul>
                 </div>

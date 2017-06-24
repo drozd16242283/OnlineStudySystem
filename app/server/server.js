@@ -1,7 +1,9 @@
+import https from 'https'
 import express from 'express'
 import session from 'express-session'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
+import fs from 'fs'
 import path from 'path'
 import passport from 'passport'
 import config from './config'
@@ -32,6 +34,14 @@ app.use(passport.session())
 import localPassport from './libs/authentication/authStrategyPassport'
 localPassport(passport)
 
+// Redirect to https
+app.all('*', function(req, res, next) {
+	if (req.secure) {
+		return next()
+	}
+	res.redirect('https://localhost:'+HTTPS_PORT+req.url);
+})
+
 // Set API's to Express
 import isAdmin from './middleware/isAdmin'
 import isTeacher from './middleware/isTeacher'
@@ -50,8 +60,15 @@ app.use('/', mainApi)
 
 
 // Starting the server
-app.listen(config.get('port'), () => {
+app.listen(6666, () => {
     console.log(`Server start at ${config.get('port')} port!`)
+})
+
+https.createServer({
+	key: fs.readFileSync(path.join(__dirname, '../ssl/server.key'), 'utf8'),
+	cert: fs.readFileSync(path.join(__dirname, '../ssl/server.crt'), 'utf8')
+}, app).listen(6677, () => {
+	console.log(`Https connection starts at the ${config.get('port')} port!`)
 })
 
 export default app

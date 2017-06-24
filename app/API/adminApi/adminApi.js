@@ -11,29 +11,9 @@ export function adminPanel(req, res) {
     res.sendFile(adminFile)
 }
 
-export function getAllUsers(req, res) {
-    userModel.getAllUsers((err, usersList) => {
-        let response = err ? { error: 'Помилка бази даних.' } : rolesToString(usersList)
-        res.json(response)
-    })
-}
-
-export function changeUserRole(req, res) {
-    let roleData = {
-        username: req.body.userName,
-        role: roleToNumber(req.body.role)
-    }
-    userModel.changeUserRole(roleData, (err, user) => {
-        let response = err ? { error: 'Помилка бази даних.' } : { success: 'Роль користувача змінено.' }
-        res.json(response)
-    })
-}
-
 export function addNewCourse(req, res) {
     if (Object.keys(req.body).length === 0) {
-        console.log('img')
         uploadCourseImage(req, res, (err) => {
-            //err ? res.sendStatus(503) : res.sendStatus(200)
             if (err) res.sendStatus(503)
         })
     } else {
@@ -43,11 +23,9 @@ export function addNewCourse(req, res) {
             courseDescription: req.body.courseDescription,
             courseLink: req.body.courseLink
         }
-        console.log('test')
 
         const newCourse = new courseModel(courseData)
         newCourse.addNewCourse(newCourse, (err, course) => {
-            //err ? res.sendStatus(503) : res.sendStatus(200)
             let response = err ? { error: 'Помилка бази даних.' } : { success: 'Курс створено!' }
             res.json(response)
         })
@@ -80,7 +58,7 @@ export function deleteCourse(req, res) {
 }
 
 export function addNewLecture(req, res) {
-    let isLecture = (req.body.isLecture == 'false') ? false : true
+    let isLecture = req.body.isLecture === 'true'
     let lectureData = {
         lectureName: req.body.lectureName,
         lectureText: req.body.lectureText,
@@ -106,5 +84,23 @@ export function deleteLecture(req, res) {
     courseModel.deleteLecture(courseLink, lectureLink, (err, result) => {
         if (err) res.sendStatus(500)
         if (result) res.json({ success: 'Лекцію видалено.' })
+    })
+}
+
+export function getAllUsers(req, res) {
+    userModel.getAllUsers((err, usersList) => {
+        let response = err ? { error: 'Помилка бази даних.' } : rolesToString(usersList)
+        res.json(response)
+    })
+}
+
+export function changeUserRole(req, res) {
+    let roleData = {
+        username: req.body.userName,
+        role: roleToNumber(req.body.role)
+    }
+    userModel.changeUserRole(roleData, (err, user) => {
+        let response = err ? { error: 'Помилка бази даних.' } : { success: 'Роль користувача змінено.' }
+        res.json(response)
     })
 }

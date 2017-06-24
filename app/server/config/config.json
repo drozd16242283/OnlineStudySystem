@@ -3,6 +3,7 @@
     "db": {
         "dbAdress": "mongodb://127.0.0.1:27017/studySystem"
     },
+    "defaultUserRole": 3,
     "session": {
         "secret": "secret_key",
         "resave": true,
