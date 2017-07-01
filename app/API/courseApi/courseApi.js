@@ -90,6 +90,7 @@ export function getAllPracticals(req, res) {
     })
 }
 
+
 export function addComment(req, res) {
     let commentData = {
         author: req.body.userName,

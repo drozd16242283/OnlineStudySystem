@@ -7,7 +7,7 @@ import IndexPage from './components/IndexPage'
 import CoursesList from './components/CoursesPage/CoursesList'
 import LecturesListWrap from './components/CoursesPage/LecturesListWrap'
 import Lecture from './components/CoursesPage/Lecture'
-import About from './components/IndexPage/About'
+import Marks from './components/IndexPage/Marks'
 
 
 const checkAuth = () => {
@@ -23,7 +23,7 @@ reactDOM.render(
             <Route component={LecturesListWrap} path="/courses/:courseLink">
                 <Route component={Lecture} path=":lectureLink" />
             </Route>
-            <Route component={About} path="about" />
+            <Route component={Marks} path="marks" />
         </Route>
     </Router>,
     document.getElementById('app')

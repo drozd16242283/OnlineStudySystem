@@ -23,7 +23,7 @@ const redirectToTeacherPage = (req, res) => {
 }
 router.get('/teacher/:route', redirectToTeacherPage)
 
-router.get('/about', (req, res) => {
+router.get('/marks', (req, res) => {
     res.redirect('/')
 })
 

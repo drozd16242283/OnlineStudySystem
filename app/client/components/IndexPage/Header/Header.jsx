@@ -17,8 +17,8 @@ const Header = React.createClass({
             return <li><a href="/admin">Панель адміністратора</a></li>
         } else if (role == 2) {
             return <li><a href="/teacher">Сторінка вчителя</a></li>
-        } else {
-            return <li><Link to="/about">Про нас</Link></li>
+        } else if (role == 3) {
+            return <li><Link to="/marks">Оцінки</Link></li>
         }
     },
 

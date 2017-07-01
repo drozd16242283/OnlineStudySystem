@@ -11,7 +11,6 @@ import ChangeRole from './components/AdminPage/ChangeRole'
 import ShowAllUsers from './components/AdminPage/ShowAllUsers'
 import Logout from './components/AdminPage/AdminLogout'
 
-import TextArea from './components/AdminPage/TextArea'
 
 reactDOM.render(
     <Router history={browserHistory}>
@@ -23,7 +22,6 @@ reactDOM.render(
             <Route component={ChangeRole} path="/changerole" />
             <Route component={ShowAllUsers} path="/users" />
             <Route component={Logout} path="/logout" />
-            <Route component={TextArea} path="/textarea" />
         </Route>
     </Router>,
     document.getElementById('admin')

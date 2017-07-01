@@ -1,5 +1,6 @@
 {
-    "port": 7777,
+    "securePort": 7777,
+    "notSecurePort": 6666,
     "db": {
         "dbAdress": "mongodb://127.0.0.1:27017/studySystem"
     },

@@ -60,15 +60,15 @@ app.use('/', mainApi)
 
 
 // Starting the server
-app.listen(6666, () => {
-    console.log(`Server start at ${config.get('port')} port!`)
+app.listen(config.get('notSecurePort'), () => {
+    console.log(`Server start at ${config.get('notSecurePort')} port!`)
 })
 
 https.createServer({
 	key: fs.readFileSync(path.join(__dirname, '../ssl/server.key'), 'utf8'),
 	cert: fs.readFileSync(path.join(__dirname, '../ssl/server.crt'), 'utf8')
-}, app).listen(6677, () => {
-	console.log(`Https connection starts at the ${config.get('port')} port!`)
+}, app).listen(config.get('securePort'), () => {
+	console.log(`Https connection starts at the ${config.get('securePort')} port!`)
 })
 
 export default app
